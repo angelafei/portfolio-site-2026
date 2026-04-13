@@ -391,7 +391,7 @@ export default function Home() {
             transform: mounted ? "translateY(0)" : "translateY(24px)",
             transition: "opacity 1s ease 0.3s, transform 1s ease 0.3s",
           }}>
-            Hello, I'm Angela Fei
+            Hello, I&#39;m Angela Fei
           </h1>
           <p style={{
             marginTop: 16,
@@ -456,7 +456,7 @@ export default function Home() {
               Turning ideas into<br />delightful experiences
             </h2>
             <p style={{ fontSize: 15, color: "#5a7a8a", lineHeight: 1.85, marginBottom: 14 }}>
-              Hi there! I'm a front-end and digital experience professional based in Taipei, with experience in website development, interactive design, SEO improvement, and user experience optimization.
+              Hi there! I&#39;m a front-end and digital experience professional based in Taipei, with experience in website development, interactive design, SEO improvement, and user experience optimization.
             </p>
             <p style={{ fontSize: 15, color: "#5a7a8a", lineHeight: 1.85 }}>
               I enjoy creating user-friendly websites and digital experiences that are visually polished, easy to use, and aligned with both business goals and user needs.
