@@ -3,6 +3,7 @@ const nextConfig = {
   /* config options here */
   devIndicators: false,
   output: 'export',
+  images: { unoptimized: true },
   distDir: 'dist'
 };
 
