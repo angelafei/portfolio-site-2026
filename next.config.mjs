@@ -2,7 +2,7 @@
 const nextConfig = {
   /* config options here */
   devIndicators: false,
-  // output: 'export',
+  output: 'export',
   distDir: 'dist'
 };
 
