@@ -2,6 +2,31 @@
 import Image from "next/image";
 import { useState, useEffect, useRef, useCallback } from "react";
 
+const imageLoader = ({ src, quality }) => {
+  return `https://angelaf-portfolio.onrender.com/${src}?q=${quality || 75}`
+}
+
+// ── useSwipe ──────────────────────────────────────────────────────────────────
+// Attach to any container ref. onLeft / onRight fire after a swipe ≥ threshold px.
+function useSwipe(onLeft, onRight, threshold = 50) {
+  const startX = useRef(null);
+
+  const onTouchStart = useCallback((e) => {
+    startX.current = e.touches[0].clientX;
+  }, []);
+
+  const onTouchEnd = useCallback((e) => {
+    if (startX.current === null) return;
+    const diff = startX.current - e.changedTouches[0].clientX;
+    if (Math.abs(diff) >= threshold) {
+      diff > 0 ? onLeft() : onRight();
+    }
+    startX.current = null;
+  }, [onLeft, onRight, threshold]);
+
+  return { onTouchStart, onTouchEnd };
+}
+
 // ── SHAPES data ────────────────────────────────────────────────────────────
 const SHAPES = [
   { type: "ring",     x: 27, y: 38, size: 44, color: "#7ec8e3", delay: 0   },
@@ -41,57 +66,67 @@ const PROJECTS = [
     src: "/images/trendmicro-homepage.png",
     desc: "Closely collaborated with PMs, HIE, and marketing teams from different countries to jointly design and develop web pages that meet diverse market requirements while ensuring high usability and an excellent user experience.",
     // tag: "Web",
-    color: "#7ec8e3"
+    color: "#7ec8e3",
+    isPhoto: false
   },
   { title: "NowTV",
     src: "/images/nowtv.png",
     desc: "NowTV is a brand under the UK-based Sky Group. During my tenure, I was responsible for developing the official website and the NowTV Player, and closely collaborated with over a hundred engineers from various disciplines to maintain and enhance a large-scale codebase.",
     // tag: "UI/UX",
-    color: "#f9e784"
+    color: "#f9e784",
+    isPhoto: false
   },
   { title: "Cameo",
     src: "/images/cameo-case-ai-02-content-01.jpg",
     desc: "Collaborated with the Environmental Protection Administration (EPA) of the Executive Yuan to leverage large-scale IoT environmental sensing data across multiple counties and cities, develop an easy-to-use user interface, analyze potential pollution hotspots, and detect sudden pollution incidents in real time.",
     // tag: "UI/UX",
-    color: "#f9e784"
+    color: "#f9e784",
+    isPhoto: false
   },
   { title: "Dudoo",
     src: "/images/dudoo.png",
     desc: "Dudoo is an internal startup brand under the Foxconn Group. It initially focused on providing restaurant recommendation services and later expanded into POS system development, collaborating with numerous restaurants. During my tenure, I was responsible for assisting in the development of the official website and the POS system interface.",
     // tag: "Illustration",
-    color: "#f9c4d2"
+    color: "#f9c4d2",
+    isPhoto: false
   },
   { title: "Stackla",
     src: "/images/stackla.webp",
     desc: "Stackla is a user-generated content (UGC) platform dedicated to helping brands and businesses collect, manage, curate, moderate, and showcase user-generated content from social media and other channels to enhance marketing effectiveness and improve conversion rates. During my tenure, I was involved in the development and optimization of the platform.",
     // tag: "Web",
-    color: "#b5e5c8"
+    color: "#b5e5c8",
+    isPhoto: false
   },
   { title: "Handcrafted bags",
     src: "/images/S__242098181.jpg",
     desc: "From selecting the fabric to every single stitch, each step is done by hand with great care to craft every detail meticulously.",
     // tag: "Illustration",
-    color: "#f9c4d2"
+    color: "#f9e784",
+    isPhoto: true
   },
   { title: "Camouflage mini backpack",
     src: "/images/S__242098182.jpg",
     desc: "Every stitch is infused with passion and crafted by hand with care, creating heartfelt pieces for a beautiful life.",
     // tag: "Illustration",
-    color: "#f9c4d2"
+    color: "#f9e784",
+    isPhoto: true
   },
   { title: "Handcrafted long wallet",
     src: "/images/S__242098183.jpg",
     desc: "Fox-patterned fabric blended with soft padding is patiently quilted, each tender stitch weaving a plush, dimensional surface that wraps the long wallet in the timeless elegance of handcrafted artistry.",
     // tag: "Illustration",
-    color: "#f9c4d2"
+    color: "#f9e784",
+    isPhoto: true
   },
   { title: "Striped Skirt",
     src: "/images/S__242098180.jpg",
     desc: "Clean tailoring and a contoured waistband, adorned with a delicate side zipper, softly trace the graceful simplicity of muted stripes.",
     // tag: "Illustration",
-    color: "#f9c4d2"
+    color: "#f9e784",
+    isPhoto: true
   },
 ];
+const photoStyle = { objectPosition: "center", objectFit: "contain" };
 
 // ── BLOB CONFIGS ─────────────────────────────────────────────────────────────
 // id 0 = giant hero blob (top-left), id 1 = mid (top-right),
@@ -206,6 +241,14 @@ export default function Home() {
   };
   const nextSlide = ()    => setCarouselIndex((i) => (i + 1) % PROJECTS.length);
   const prevSlide = ()    => setCarouselIndex((i) => (i - 1 + PROJECTS.length) % PROJECTS.length);
+
+  // Swipe for portfolio carousel
+  const portfolioSwipe = useSwipe(nextSlide, prevSlide);
+
+  // Swipe for skills carousel
+  const skillNext = useCallback(() => setSkillIndex(i => (i + 1) % SKILLS.length), []);
+  const skillPrev = useCallback(() => setSkillIndex(i => (i - 1 + SKILLS.length) % SKILLS.length), []);
+  const skillsSwipe = useSwipe(skillNext, skillPrev);
 
   return (
     <div style={{ fontFamily: "'DM Sans','Nunito',sans-serif", background: "#f8fcff", overflowX: "hidden" }}>
@@ -536,14 +579,19 @@ export default function Home() {
           <h2 style={{ fontFamily: "'DM Serif Display',serif", fontSize: "clamp(24px,3.5vw,38px)", color: "#2a5a70", fontWeight: 400, textAlign: "center", marginBottom: 44 }}>Selected Projects</h2>
 
           <div style={{ position: "relative" }}>
-            <div style={{ overflow: "hidden", borderRadius: 22 }}>
+            <div {...portfolioSwipe} style={{ overflow: "hidden", borderRadius: 22, touchAction: "pan-y" }}>
               <div style={{ display: "flex", transition: "transform 0.5s cubic-bezier(0.4,0,0.2,1)", transform: `translateX(-${carouselIndex * 100}%)` }}>
                 {PROJECTS.map((proj, i) => (
                  <div key={i} style={{ minWidth: "100%", background: "white", borderRadius: 24, border: "1.5px solid #d8f0f8" }}>
                     <div style={{ height: 360, background: `linear-gradient(135deg, ${proj.color}55, ${proj.color}22)`, 
                         display: "flex", alignItems: "center", justifyContent: "center",
                         objectFit: "cover", position: "relative", borderRadius: "22px 22px 0 0" }}>
-                    <Image src={proj.src} fill style={{ objectFit: 'cover', objectPosition: "left top", borderRadius: "22px 22px 0 0" }} alt="Trend Micro U.S. Official Site" />
+                    <Image
+                        loader={imageLoader}
+                        src={proj.src}
+                        fill
+                        style={{ objectFit: 'cover', objectPosition: "left top", borderRadius: "22px 22px 0 0", ...(proj.isPhoto && photoStyle) }}
+                        alt="Trend Micro U.S. Official Site" />
                     {/* <div style={{ width: 80, height: 80, borderRadius: "50%", border: `6px solid ${proj.color}`, opacity: 0.5 }} /> */}
                     {/* <div style={{ position: "absolute", top: 20, right: 24, background: `${proj.color}33`, color: "#4a8fa8", border: `1px solid ${proj.color}88`, borderRadius: 999, padding: "4px 14px", fontSize: 12, fontWeight: 600 }}>{proj.tag}</div> */}
                     </div>
