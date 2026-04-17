@@ -248,7 +248,7 @@ export default function Home() {
   // Swipe for skills carousel
   const skillNext = useCallback(() => setSkillIndex(i => (i + 1) % SKILLS.length), []);
   const skillPrev = useCallback(() => setSkillIndex(i => (i - 1 + SKILLS.length) % SKILLS.length), []);
-  const skillsSwipe = useSwipe(skillNext, skillPrev);
+  // const skillsSwipe = useSwipe(skillNext, skillPrev);
 
   return (
     <div style={{ fontFamily: "'DM Sans','Nunito',sans-serif", background: "#f8fcff", overflowX: "hidden" }}>
