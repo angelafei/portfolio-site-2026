@@ -97,6 +97,22 @@ const PROJECTS = [
     color: "#b5e5c8",
     isPhoto: false
   },
+  { title: "Pet Health Diary",
+    src: "/images/pet-health.png",
+    desc: "A personal practice project built with Vue 3 and Vite, focused on mastering the modern Composition API and creating smooth micro-interactions. It features a minimalist, soft-toned, watercolor-inspired user interface designed to help pet owners track daily wellness metrics, weight trends, and medical reminders. (Active Development)",
+    // tag: "Web",
+    color: "#b5e5c8",
+    isPhoto: false,
+    link: "https://pawdiary.onrender.com/"
+  },
+  { title: "2020 Portfolio Site",
+    src: "/images/2020-portfolio-site.png",
+    desc: "A retrospective look at my previous personal portfolio site developed in 2020. Built using Vue 2, this project reflects my foundational expertise in component-based architecture, client-side routing, and responsive web design during the earlier stages of my Vue ecosystem journey.",
+    // tag: "Web",
+    color: "#b5e5c8",
+    isPhoto: false,
+    link: "https://angela-portfolio.onrender.com/"
+  },
   { title: "Handcrafted bags",
     src: "/images/S__242098181.jpg",
     desc: "From selecting the fabric to every single stitch, each step is done by hand with great care to craft every detail meticulously.",
@@ -598,7 +614,21 @@ export default function Home() {
                     <div style={{ padding: "28px 32px 36px" }}>
                     <h3 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 26, color: "#2a5a70", marginBottom: 10, fontWeight: 400 }}>{proj.title}</h3>
                     <p style={{ fontSize: 16, color: "#7a9aaa", lineHeight: 1.6 }}>{proj.desc}</p>
-                    {/* <button style={{ marginTop: 24, background: "transparent", border: `1.5px solid ${proj.color}`, color: "#4a8fa8", borderRadius: 999, padding: "9px 24px", fontFamily: "inherit", fontSize: 14, fontWeight: 600, cursor: "pointer" }}>View Case Study →</button> */}
+                    { proj.link && 
+                        <a href={proj.link} target="_blank" rel="noreferrer"
+                          style={{
+                            display: "inline-block",
+                            marginTop: 24, 
+                            background: "transparent", 
+                            border: `1.5px solid ${proj.color}`, 
+                            color: "#4a8fa8", 
+                            borderRadius: 999, 
+                            padding: "9px 24px", 
+                            fontFamily: "inherit", 
+                            fontSize: 14, 
+                            fontWeight: 600, 
+                            cursor: "pointer" 
+                          }}>View →</a>}
                     </div>
                 </div>
                 ))}
