@@ -50,16 +50,16 @@ const SHAPES = [
 
 const NAV_ITEMS  = ["About", "Portfolio", "Skills", "Contact"];
 const SKILLS = [
-  { category: "Frontend", color: "#7ec8e3", bg: "#e8f7ff", items: ["HTML5","CSS3","JavaScript","TypeScript","ReactJS","VueJS","AngularJS","Bootstrap","Tailwind","Sass","GraphQL","Responsive Design","Cross-browser Compatibility","Accessibility","Map Libraries","Chart Libraries","D3","FabricJS"], icon: "◇" },
-  { category: "Backend", color: "#6abfa8", bg: "#e2f5f0", items: ["NodeJS","PHP","Python","REST API","Apps Script"], icon: "◈" },
-  { category: "Testing", color: "#e8a87c", bg: "#fef3eb", items: ["Mocha","Chai","Sinon","Cypress","Selenium","Robot Framework"], icon: "○" },
-  { category: "Build Tools", color: "#9b8fd4", bg: "#f0eeff", items: ["Git","Gulp","Webpack","Turbopack","Babel","NPM","Yarn"], icon: "◇" },
-  { category: "Analytics Marketing", color: "#72b896", bg: "#e8f6ee", items: ["Google Analytics","GA4","GTM","SEO","A/B Testing","Data Tracking"], icon: "◈" },
-  { category: "CMS Tools", color: "#e07d8a", bg: "#fdeef0", items: ["Adobe Experience Manager","CMS","Dreamweaver","Microsoft Office Suite","Notion","Jira","Asana","Figma"], icon: "◈" },
-  { category: "Design", color: "#f0a868", bg: "#fff4e8", items: ["Photoshop","Illustrator","Figma","UX Design","Wireframing","Prototyping","Design Systems"], icon: "◈" },
-  { category: "OS", color: "#3B5467", bg: "#E4ECF1", items: ["Mac","Windows","Linux"], icon: "○" },
-  { category: "Soft Skills", color: "#7ab8cc", bg: "#e5f4f9", items: ["Cross-functional Collaboration","Stakeholder Communication","Project Coordination","Problem Solving","Detail-oriented","Time Management","Remote Collaboration","Multicultural Communication"], icon: "◈" },
-  { category: "Interests", color: "#c49ed4", bg: "#f5eeff", items: ["Handmade Crafts","Reading","Baking","Cooking","Travel","Tarot","Nature Walks","Pet Friendly","Slow Living","Inner Peace","Meditation","Mindfulness","Simplicity","Sustainability"], icon: "◈" },
+  { category: "Frontend", color: "#1a7ab0", bg: "#e8f7ff", items: ["HTML5","CSS3","JavaScript","TypeScript","ReactJS","VueJS","AngularJS","Bootstrap","Tailwind","Sass","GraphQL","Responsive Design","Cross-browser Compatibility","Accessibility","Map Libraries","Chart Libraries","D3","FabricJS"], icon: "◇" },
+  { category: "Backend", color: "#0d7a5f", bg: "#e2f5f0", items: ["NodeJS","NextJS","PHP","Python","REST API","Apps Script"], icon: "◈" },
+  { category: "Testing", color: "#c4622d", bg: "#fef3eb", items: ["Mocha","Chai","Sinon","Cypress","Selenium","Robot Framework"], icon: "○" },
+  { category: "Build Tools", color: "#5a48c8", bg: "#f0eeff", items: ["Git","Gulp","Webpack","Turbopack","Babel","NPM","Yarn"], icon: "◇" },
+  { category: "Analytics Marketing", color: "#2e7d4f", bg: "#e8f6ee", items: ["Google Analytics","GA4","GTM","SEO","A/B Testing","Data Tracking"], icon: "◈" },
+  { category: "CMS Tools", color: "#c0364a", bg: "#fdeef0", items: ["Adobe Experience Manager","CMS","Dreamweaver","Microsoft Office Suite","Notion","Jira","Asana","Figma"], icon: "◈" },
+  { category: "Design", color: "#b85c1a", bg: "#fff4e8", items: ["Photoshop","Illustrator","Figma","UX Design","Wireframing","Prototyping","Design Systems"], icon: "◈" },
+  { category: "OS", color: "#2a6a8a", bg: "#e5f4f9", items: ["Mac","Windows","Linux"], icon: "○" },
+  { category: "Soft Skills", color: "#1e8bcb", bg: "#e5f4f9", items: ["Cross-functional Collaboration","Stakeholder Communication","Project Coordination","Problem Solving","Detail-oriented","Time Management","Remote Collaboration","Multicultural Communication"], icon: "◈" },
+  { category: "Interests", color: "#7a42b8", bg: "#f5eeff", items: ["Handmade Crafts","Reading","Baking","Cooking","Travel","Tarot","Nature Walks","Pet Friendly","Slow Living","Inner Peace","Meditation","Mindfulness","Simplicity","Sustainability"], icon: "◈" },
 ];
 const PROJECTS = [
   { title: "Trend Micro",
@@ -264,6 +264,7 @@ export default function Home() {
   // Swipe for skills carousel
   const skillNext = useCallback(() => setSkillIndex(i => (i + 1) % SKILLS.length), []);
   const skillPrev = useCallback(() => setSkillIndex(i => (i - 1 + SKILLS.length) % SKILLS.length), []);
+  const skillsSwipe = useSwipe(skillNext, skillPrev);
   // const skillsSwipe = useSwipe(skillNext, skillPrev);
 
   return (
@@ -648,9 +649,31 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── GRADIENT ────────────────────────────────────────────────────── */}
+      {/* <section id="gradient" style={{ padding: "72px 0 80px", background: "linear-gradient(180deg,#f8fcff 0%,#fdfbec 60%,#faf6d8 100%)" }}>
+      </section> */}
+
       {/* ── SKILLS ────────────────────────────────────────────────────── */}
-      <section id="skills" style={{ padding: "72px 0 80px", background: "linear-gradient(180deg,#f8fcff 0%,#e8f7ff 100%)", overflow: "hidden" }}>
-        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 5%" }}>
+      <section id="skills" style={{ padding: "0 0 80px", background: "#faf6d8", overflow: "hidden" }}>
+        
+        {/* Wave divider — blends portfolio's white/light-blue into skills' yellow */}
+        <div style={{ lineHeight: 0, marginBottom: 0 }}>
+          <svg viewBox="0 0 1440 88" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"
+            style={{ display: "block", width: "100%", height: "clamp(48px,6vw,88px)" }}>
+            <defs>
+              <linearGradient id="waveGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="#f8fcff" />
+                <stop offset="100%" stopColor="#f0f9ff" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M0,0 C240,88 480,0 720,44 C960,88 1200,0 1440,44 L1440,0 L0,0 Z"
+              fill="url(#waveGrad)"
+            />
+          </svg>
+        </div>
+
+        <div style={{ maxWidth: 1100, margin: "60px auto 0 auto", padding: "0 5%" }}>
           <p style={{ color: "#7ec8e3", fontWeight: 600, fontSize: 12, letterSpacing: "0.14em", marginBottom: 12, textTransform: "uppercase", textAlign: "center" }}>What I Do</p>
           <h2 style={{ fontFamily: "'DM Serif Display',serif", fontSize: "clamp(24px,3.5vw,38px)", color: "#2a5a70", fontWeight: 400, textAlign: "center", marginBottom: 44 }}>Skills</h2>
         </div>
@@ -666,7 +689,8 @@ export default function Home() {
           >‹</button>
 
           {/* Sliding window */}
-          <div style={{ overflow: "hidden", padding: "8px 0 16px" }}>
+          <div {...skillsSwipe}
+            style={{ overflow: "hidden", padding: "20px 0 32px 16px", touchAction: "pan-y" }}>
             <div style={{
               display: "flex",
               gap: 20,
@@ -711,13 +735,17 @@ export default function Home() {
                     <div style={{ display: "flex", flexWrap: "wrap", gap: 7 }}>
                       {cat.items.map(item => (
                         <span key={item} style={{
-                          fontSize: 12.5, padding: "4px 12px",
+                          fontSize: 13,
+                          fontWeight: 600,
+                          padding: "5px 13px",
                           borderRadius: 20,
                           background: cat.bg,
                           color: cat.color,
                           border: `1px solid ${cat.color}55`,
                           fontWeight: 500,
                           lineHeight: 1.4,
+                          letterSpacing: "0.01em",
+                          WebkitFontSmoothing: "antialiased",
                         }}>{item}</span>
                       ))}
                     </div>
