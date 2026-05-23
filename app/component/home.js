@@ -50,10 +50,10 @@ const SHAPES = [
 
 const NAV_ITEMS  = ["About", "Portfolio", "Skills", "Contact"];
 const SKILLS = [
-  { category: "Frontend", color: "#1a7ab0", bg: "#e8f7ff", items: ["HTML5","CSS3","JavaScript","TypeScript","ReactJS","VueJS","AngularJS","Bootstrap","Tailwind","Sass","GraphQL","Responsive Design","Cross-browser Compatibility","Accessibility","Map Libraries","Chart Libraries","D3","FabricJS"], icon: "◇" },
+  { category: "Frontend", color: "#1a7ab0", bg: "#e8f7ff", items: ["HTML5","CSS3","JavaScript","TypeScript","ReactJS","VueJS","AngularJS","Electron","D3.js","FabricJS","Bootstrap","Tailwind","Sass","GraphQL","Responsive Design","Cross-browser Compatibility","Accessibility","Map Libraries","Chart Libraries"], icon: "◇" },
   { category: "Backend", color: "#0d7a5f", bg: "#e2f5f0", items: ["NodeJS","NextJS","PHP","Python","REST API","Apps Script"], icon: "◈" },
   { category: "Testing", color: "#c4622d", bg: "#fef3eb", items: ["Mocha","Chai","Sinon","Cypress","Selenium","Robot Framework"], icon: "○" },
-  { category: "Build Tools", color: "#5a48c8", bg: "#f0eeff", items: ["Git","Gulp","Webpack","Turbopack","Babel","NPM","Yarn"], icon: "◇" },
+  { category: "Build Tools", color: "#5a48c8", bg: "#f0eeff", items: ["Git","Gulp","Webpack","Turbopack","Vite","Babel","NPM","Yarn"], icon: "◇" },
   { category: "Analytics Marketing", color: "#2e7d4f", bg: "#e8f6ee", items: ["Google Analytics","GA4","GTM","SEO","A/B Testing","Data Tracking"], icon: "◈" },
   { category: "CMS Tools", color: "#c0364a", bg: "#fdeef0", items: ["Adobe Experience Manager","CMS","Dreamweaver","Microsoft Office Suite","Notion","Jira","Asana","Figma"], icon: "◈" },
   { category: "Design", color: "#b85c1a", bg: "#fff4e8", items: ["Photoshop","Illustrator","Figma","UX Design","Wireframing","Prototyping","Design Systems"], icon: "◈" },
@@ -64,6 +64,7 @@ const SKILLS = [
 const PROJECTS = [
   { title: "Trend Micro",
     src: "/images/trendmicro-homepage.png",
+    alt: "Trend Micro U.S. Official Site",
     desc: "Closely collaborated with PMs, HIE, and marketing teams from different countries to jointly design and develop web pages that meet diverse market requirements while ensuring high usability and an excellent user experience.",
     // tag: "Web",
     color: "#7ec8e3",
@@ -71,6 +72,7 @@ const PROJECTS = [
   },
   { title: "NowTV",
     src: "/images/nowtv.png",
+    alt: "NowTV Website",
     desc: "NowTV is a brand under the UK-based Sky Group. During my tenure, I was responsible for developing the official website and the NowTV Player, and closely collaborated with over a hundred engineers from various disciplines to maintain and enhance a large-scale codebase.",
     // tag: "UI/UX",
     color: "#f9e784",
@@ -78,6 +80,7 @@ const PROJECTS = [
   },
   { title: "Cameo",
     src: "/images/cameo-case-ai-02-content-01.jpg",
+    alt: "Cameo Website",
     desc: "Collaborated with the Environmental Protection Administration (EPA) of the Executive Yuan to leverage large-scale IoT environmental sensing data across multiple counties and cities, develop an easy-to-use user interface, analyze potential pollution hotspots, and detect sudden pollution incidents in real time.",
     // tag: "UI/UX",
     color: "#f9e784",
@@ -85,6 +88,7 @@ const PROJECTS = [
   },
   { title: "Dudoo",
     src: "/images/dudoo.png",
+    alt: "Dudoo Website",
     desc: "Dudoo is an internal startup brand under the Foxconn Group. It initially focused on providing restaurant recommendation services and later expanded into POS system development, collaborating with numerous restaurants. During my tenure, I was responsible for assisting in the development of the official website and the POS system interface.",
     // tag: "Illustration",
     color: "#f9c4d2",
@@ -92,6 +96,7 @@ const PROJECTS = [
   },
   { title: "Stackla",
     src: "/images/stackla.webp",
+    alt: "Stackla Website",
     desc: "Stackla is a user-generated content (UGC) platform dedicated to helping brands and businesses collect, manage, curate, moderate, and showcase user-generated content from social media and other channels to enhance marketing effectiveness and improve conversion rates. During my tenure, I was involved in the development and optimization of the platform.",
     // tag: "Web",
     color: "#b5e5c8",
@@ -99,22 +104,25 @@ const PROJECTS = [
   },
   { title: "Pet Health Diary",
     src: "/images/pet-health.png",
+    alt: "Pet Health Diary",
     desc: "A personal practice project built with Vue 3 and Vite, focused on mastering the modern Composition API and creating smooth micro-interactions. It features a minimalist, soft-toned, watercolor-inspired user interface designed to help pet owners track daily wellness metrics, weight trends, and medical reminders. (Active Development)",
     // tag: "Web",
     color: "#b5e5c8",
     isPhoto: false,
     link: "https://pawdiary.onrender.com/"
   },
-  { title: "2020 Portfolio Site",
-    src: "/images/2020-portfolio-site.png",
-    desc: "A retrospective look at my previous personal portfolio site developed in 2020. Built using Vue 2, this project reflects my foundational expertise in component-based architecture, client-side routing, and responsive web design during the earlier stages of my Vue ecosystem journey.",
+  { title: "Arduino Project",
+    src: "/images/arduino-project.png",
+    alt: "Arduino Project",
+    desc: "An interactive installation showcased at the University of the Arts London exhibition, combining Arduino, sensors, handcrafted props, and performer audio to create playful and immersive audience interactions.",
     // tag: "Web",
     color: "#b5e5c8",
     isPhoto: false,
-    link: "https://angela-portfolio.onrender.com/"
+    link: "https://player.vimeo.com/video/1194898671"
   },
   { title: "Handcrafted bags",
     src: "/images/S__242098181.jpg",
+    alt: "Handcrafted bags",
     desc: "From selecting the fabric to every single stitch, each step is done by hand with great care to craft every detail meticulously.",
     // tag: "Illustration",
     color: "#f9e784",
@@ -122,6 +130,7 @@ const PROJECTS = [
   },
   { title: "Camouflage mini backpack",
     src: "/images/S__242098182.jpg",
+    alt: "Camouflage mini backpack",
     desc: "Every stitch is infused with passion and crafted by hand with care, creating heartfelt pieces for a beautiful life.",
     // tag: "Illustration",
     color: "#f9e784",
@@ -129,6 +138,7 @@ const PROJECTS = [
   },
   { title: "Handcrafted long wallet",
     src: "/images/S__242098183.jpg",
+    alt: "Handcrafted long wallet",
     desc: "Fox-patterned fabric blended with soft padding is patiently quilted, each tender stitch weaving a plush, dimensional surface that wraps the long wallet in the timeless elegance of handcrafted artistry.",
     // tag: "Illustration",
     color: "#f9e784",
@@ -136,6 +146,7 @@ const PROJECTS = [
   },
   { title: "Striped Skirt",
     src: "/images/S__242098180.jpg",
+    alt: "Striped Skirt",
     desc: "Clean tailoring and a contoured waistband, adorned with a delicate side zipper, softly trace the graceful simplicity of muted stripes.",
     // tag: "Illustration",
     color: "#f9e784",
@@ -608,7 +619,7 @@ export default function Home() {
                         src={proj.src}
                         fill
                         style={{ objectFit: 'cover', objectPosition: "left top", borderRadius: "22px 22px 0 0", ...(proj.isPhoto && photoStyle) }}
-                        alt="Trend Micro U.S. Official Site" />
+                        alt={proj.alt} />
                     {/* <div style={{ width: 80, height: 80, borderRadius: "50%", border: `6px solid ${proj.color}`, opacity: 0.5 }} /> */}
                     {/* <div style={{ position: "absolute", top: 20, right: 24, background: `${proj.color}33`, color: "#4a8fa8", border: `1px solid ${proj.color}88`, borderRadius: 999, padding: "4px 14px", fontSize: 12, fontWeight: 600 }}>{proj.tag}</div> */}
                     </div>
