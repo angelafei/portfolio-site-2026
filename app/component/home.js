@@ -385,7 +385,7 @@ export default function Home() {
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 200,
         padding: "14px 24px",
         display: "flex", justifyContent: "space-between", alignItems: "center",
-        background: "rgba(100,196,228,0.18)", backdropFilter: "blur(14px)",
+        background: "rgba(100,196,228,0.30)", backdropFilter: "blur(14px)",
       }}>
         <span style={{ fontFamily: "'DM Serif Display',serif", fontSize: 20, color: "white", letterSpacing: "0.01em", flexShrink: 0 }}>
           Angela Fei
