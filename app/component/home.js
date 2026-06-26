@@ -120,38 +120,38 @@ const PROJECTS = [
     isPhoto: false,
     link: "https://player.vimeo.com/video/1194898671"
   },
-  { title: "Handcrafted bags",
-    src: "/images/S__242098181.jpg",
-    alt: "Handcrafted bags",
-    desc: "From selecting the fabric to every single stitch, each step is done by hand with great care to craft every detail meticulously.",
-    // tag: "Illustration",
-    color: "#f9e784",
-    isPhoto: true
-  },
-  { title: "Camouflage mini backpack",
-    src: "/images/S__242098182.jpg",
-    alt: "Camouflage mini backpack",
-    desc: "Every stitch is infused with passion and crafted by hand with care, creating heartfelt pieces for a beautiful life.",
-    // tag: "Illustration",
-    color: "#f9e784",
-    isPhoto: true
-  },
-  { title: "Handcrafted long wallet",
-    src: "/images/S__242098183.jpg",
-    alt: "Handcrafted long wallet",
-    desc: "Fox-patterned fabric blended with soft padding is patiently quilted, each tender stitch weaving a plush, dimensional surface that wraps the long wallet in the timeless elegance of handcrafted artistry.",
-    // tag: "Illustration",
-    color: "#f9e784",
-    isPhoto: true
-  },
-  { title: "Striped Skirt",
-    src: "/images/S__242098180.jpg",
-    alt: "Striped Skirt",
-    desc: "Clean tailoring and a contoured waistband, adorned with a delicate side zipper, softly trace the graceful simplicity of muted stripes.",
-    // tag: "Illustration",
-    color: "#f9e784",
-    isPhoto: true
-  },
+  // { title: "Handcrafted bags",
+  //   src: "/images/S__242098181.jpg",
+  //   alt: "Handcrafted bags",
+  //   desc: "From selecting the fabric to every single stitch, each step is done by hand with great care to craft every detail meticulously.",
+  //   // tag: "Illustration",
+  //   color: "#f9e784",
+  //   isPhoto: true
+  // },
+  // { title: "Camouflage mini backpack",
+  //   src: "/images/S__242098182.jpg",
+  //   alt: "Camouflage mini backpack",
+  //   desc: "Every stitch is infused with passion and crafted by hand with care, creating heartfelt pieces for a beautiful life.",
+  //   // tag: "Illustration",
+  //   color: "#f9e784",
+  //   isPhoto: true
+  // },
+  // { title: "Handcrafted long wallet",
+  //   src: "/images/S__242098183.jpg",
+  //   alt: "Handcrafted long wallet",
+  //   desc: "Fox-patterned fabric blended with soft padding is patiently quilted, each tender stitch weaving a plush, dimensional surface that wraps the long wallet in the timeless elegance of handcrafted artistry.",
+  //   // tag: "Illustration",
+  //   color: "#f9e784",
+  //   isPhoto: true
+  // },
+  // { title: "Striped Skirt",
+  //   src: "/images/S__242098180.jpg",
+  //   alt: "Striped Skirt",
+  //   desc: "Clean tailoring and a contoured waistband, adorned with a delicate side zipper, softly trace the graceful simplicity of muted stripes.",
+  //   // tag: "Illustration",
+  //   color: "#f9e784",
+  //   isPhoto: true
+  // },
 ];
 const photoStyle = { objectPosition: "center", objectFit: "contain" };
 
@@ -615,9 +615,11 @@ export default function Home() {
                         display: "flex", alignItems: "center", justifyContent: "center",
                         objectFit: "cover", position: "relative", borderRadius: "22px 22px 0 0" }}>
                     <Image
-                        loader={imageLoader}
+                        // loader={imageLoader}
                         src={proj.src}
                         fill
+                        priority={i === carouselIndex}
+                        loading={Math.abs(i - carouselIndex) <= 1 ? "eager" : "lazy"}
                         style={{ objectFit: 'cover', objectPosition: "left top", borderRadius: "22px 22px 0 0", ...(proj.isPhoto && photoStyle) }}
                         alt={proj.alt} />
                     {/* <div style={{ width: 80, height: 80, borderRadius: "50%", border: `6px solid ${proj.color}`, opacity: 0.5 }} /> */}
