@@ -102,6 +102,15 @@ const PROJECTS = [
     color: "#b5e5c8",
     isPhoto: false
   },
+  { title: "3D Cat Companion",
+    src: "/images/cat-game.png",
+    alt: "Cat Game",
+    desc: "A personal practice project built with React and React Three Fiber, focused on mastering 3D web development and custom animation logic. It features a soft, watercolor-inspired cat companion you can feed, play with, groom, and put to sleep. (Active Development)",
+    // tag: "Web",
+    color: "#b5e5c8",
+    isPhoto: false,
+    link: "https://cat-game-e10w.onrender.com/"
+  },
   { title: "Pet Health Diary",
     src: "/images/pet-health.png",
     alt: "Pet Health Diary",
