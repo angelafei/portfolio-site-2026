@@ -50,13 +50,13 @@ const SHAPES = [
 
 const NAV_ITEMS  = ["About", "Portfolio", "Skills", "Contact"];
 const SKILLS = [
-  { category: "Frontend", color: "#1a7ab0", bg: "#e8f7ff", items: ["HTML5","CSS3","JavaScript","TypeScript","ReactJS","VueJS","AngularJS","Electron","D3.js","FabricJS","Bootstrap","Tailwind","Sass","GraphQL","Responsive Design","Cross-browser Compatibility","Accessibility","Map Libraries","Chart Libraries"], icon: "◇" },
-  { category: "Backend", color: "#0d7a5f", bg: "#e2f5f0", items: ["NodeJS","NextJS","PHP","Python","REST API","Apps Script"], icon: "◈" },
+  { category: "Frontend", color: "#1a7ab0", bg: "#e8f7ff", items: ["HTML5","CSS3","JavaScript","TypeScript","ReactJS","VueJS","AngularJS","Electron","D3.js","Three.js","FabricJS","Bootstrap","Tailwind","Sass","GraphQL","Responsive Design","Cross-browser Compatibility","Accessibility","Map Libraries","Chart Libraries"], icon: "◇" },
+  { category: "Backend", color: "#0d7a5f", bg: "#e2f5f0", items: ["NodeJS","NextJS","PHP","Python","RESTful API","Apps Script"], icon: "◈" },
   { category: "Testing", color: "#c4622d", bg: "#fef3eb", items: ["Mocha","Chai","Sinon","Cypress","Selenium","Robot Framework"], icon: "○" },
   { category: "Build Tools", color: "#5a48c8", bg: "#f0eeff", items: ["Git","Gulp","Webpack","Turbopack","Vite","Babel","NPM","Yarn"], icon: "◇" },
   { category: "Analytics Marketing", color: "#2e7d4f", bg: "#e8f6ee", items: ["Google Analytics","GA4","GTM","SEO","A/B Testing","Data Tracking"], icon: "◈" },
   { category: "CMS Tools", color: "#c0364a", bg: "#fdeef0", items: ["Adobe Experience Manager","CMS","Dreamweaver","Microsoft Office Suite","Notion","Jira","Asana","Figma"], icon: "◈" },
-  { category: "Design", color: "#b85c1a", bg: "#fff4e8", items: ["Photoshop","Illustrator","Figma","UX Design","Wireframing","Prototyping","Design Systems"], icon: "◈" },
+  { category: "Design", color: "#b85c1a", bg: "#fff4e8", items: ["Photoshop","Illustrator","Figma","Canva","UX Design","Wireframing","Prototyping","Design Systems"], icon: "◈" },
   { category: "OS", color: "#2a6a8a", bg: "#e5f4f9", items: ["Mac","Windows","Linux"], icon: "○" },
   { category: "Soft Skills", color: "#1e8bcb", bg: "#e5f4f9", items: ["Cross-functional Collaboration","Stakeholder Communication","Project Coordination","Problem Solving","Detail-oriented","Time Management","Remote Collaboration","Multicultural Communication"], icon: "◈" },
   { category: "Interests", color: "#7a42b8", bg: "#f5eeff", items: ["Handmade Crafts","Reading","Baking","Cooking","Travel","Tarot","Nature Walks","Pet Friendly","Slow Living","Inner Peace","Meditation","Mindfulness","Simplicity","Sustainability"], icon: "◈" },
