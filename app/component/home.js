@@ -336,7 +336,17 @@ export default function Home() {
         .hamburger span { display:block; width:22px; height:2px; background:white; border-radius:2px; transition:all 0.3s; }
 
         /* PORTFOLIO */
-        .proj-img { aspect-ratio: 16/7; }
+        .portfolio-arrow { display: flex; }
+        .proj-img           { aspect-ratio: 16/7; }
+        .proj-desc          { font-size: 16px; line-height: 1.6; }
+        .swipe-hint         { display: none; }
+
+        @media (max-width: 768px) {
+          .portfolio-arrow  { display: none !important; }
+          .proj-img          { aspect-ratio: 4/3; }
+          .proj-desc         { font-size: 13px; line-height: 1.55; }
+          .swipe-hint        { display: block; text-align: center; font-size: 11px; color: #aaccd8; letter-spacing: 0.08em; padding: 6px 0 2px; }
+        }
         
         /* SKILL TAGS */
         .skill-tag       { background:rgba(126,200,227,0.15); color:#3a8fa8; border:1px solid rgba(126,200,227,0.35); border-radius:20px; padding:5px 14px; font-size:13px; display:inline-block; margin:4px; transition:all 0.2s; }
@@ -381,7 +391,6 @@ export default function Home() {
           }
           .about-grid    { grid-template-columns:1fr !important; gap:48px !important; }
           .about-avatar  { order:-1; max-width:280px !important; margin:0 auto !important; }
-          .proj-img { aspect-ratio: 4/3; }
           .skills-grid   { grid-template-columns:1fr !important; }
           .hero-btns     { flex-direction:column !important; align-items:center !important; }
           .hero-btns button { width:200px; }
@@ -622,14 +631,14 @@ export default function Home() {
           {/* flex row: ‹ [card] › */}
           <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
  
-            <button className="carousel-btn" onClick={prevSlide} style={{ flexShrink: 0 }}>‹</button>
+            <button className="carousel-btn portfolio-arrow" onClick={prevSlide} style={{ flexShrink: 0 }}>‹</button>
  
             <div style={{ flex: 1, minWidth: 0 }}>
               <div {...portfolioSwipe} style={{ overflow: "hidden", borderRadius: 22, touchAction: "pan-y" }}>
                 <div style={{ display: "flex", transition: "transform 0.5s cubic-bezier(0.4,0,0.2,1)", transform: `translateX(-${carouselIndex * 100}%)` }}>
                   {PROJECTS.map((proj, i) => (
                     <div key={i} style={{ minWidth: "100%", background: "white", borderRadius: 22, border: "1.5px solid #d8f0f8" }}>
-                      <div className="proj-img" style={{ position: "relative", position: "relative", borderRadius: "20px 20px 0 0", overflow: "hidden", background: `linear-gradient(135deg,${proj.color}55,${proj.color}22)` }}>
+                      <div className="proj-img" style={{ position: "relative", borderRadius: "20px 20px 0 0", overflow: "hidden", background: `linear-gradient(135deg,${proj.color}55,${proj.color}22)` }}>
                         <Image
                           src={proj.src}
                           fill
@@ -642,7 +651,7 @@ export default function Home() {
                       </div>
                       <div style={{ padding: "28px 32px 36px" }}>
                         <h3 style={{ fontFamily: "'DM Serif Display',serif", fontSize: 26, color: "#2a5a70", marginBottom: 10, fontWeight: 400 }}>{proj.title}</h3>
-                        <p style={{ fontSize: 16, color: "#7a9aaa", lineHeight: 1.6 }}>{proj.desc}</p>
+                        <p className="proj-desc" style={{ color: "#7a9aaa" }}>{proj.desc}</p>
                         {proj.link && (
                           <a href={proj.link} target="_blank" rel="noreferrer" style={{
                             display: "inline-block", marginTop: 24,
@@ -658,16 +667,17 @@ export default function Home() {
               </div>
             </div>
  
-            <button className="carousel-btn" onClick={nextSlide} style={{ flexShrink: 0 }}>›</button>
+            <button className="carousel-btn portfolio-arrow" onClick={nextSlide} style={{ flexShrink: 0 }}>›</button>
  
           </div>
  
-          {/* Dots */}
-          <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 20 }}>
+          {/* Dots + swipe hint */}
+          <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 16 }}>
             {PROJECTS.map((_, i) => (
               <div key={i} className={`dot-indicator${i === carouselIndex ? " active" : ""}`} onClick={() => setCarouselIndex(i)} />
             ))}
           </div>
+           <div className="swipe-hint">← SWIPE →</div>
         </div>
       </section>
 
