@@ -335,6 +335,9 @@ export default function Home() {
         .hamburger      { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:6px; }
         .hamburger span { display:block; width:22px; height:2px; background:white; border-radius:2px; transition:all 0.3s; }
 
+        /* PORTFOLIO */
+        .proj-img { aspect-ratio: 16/7; }
+        
         /* SKILL TAGS */
         .skill-tag       { background:rgba(126,200,227,0.15); color:#3a8fa8; border:1px solid rgba(126,200,227,0.35); border-radius:20px; padding:5px 14px; font-size:13px; display:inline-block; margin:4px; transition:all 0.2s; }
         .skill-tag:hover { background:rgba(126,200,227,0.3); transform:translateY(-2px); }
@@ -378,6 +381,7 @@ export default function Home() {
           }
           .about-grid    { grid-template-columns:1fr !important; gap:48px !important; }
           .about-avatar  { order:-1; max-width:280px !important; margin:0 auto !important; }
+          .proj-img { aspect-ratio: 4/3; }
           .skills-grid   { grid-template-columns:1fr !important; }
           .hero-btns     { flex-direction:column !important; align-items:center !important; }
           .hero-btns button { width:200px; }
@@ -533,7 +537,7 @@ export default function Home() {
           <div>
             <p style={{ color: "#7ec8e3", fontWeight: 600, fontSize: 12, letterSpacing: "0.14em", marginBottom: 12, textTransform: "uppercase" }}>About Me</p>
             <h2 style={{ fontFamily: "'DM Serif Display',serif", fontSize: "clamp(26px,4vw,42px)", color: "#2a5a70", fontWeight: 400, lineHeight: 1.25, marginBottom: 22 }}>
-              Turning ideas into<br />delightful experiences
+              Bridging design, code, <br /> and user experience.
             </h2>
             <p style={{ fontSize: 15, color: "#5a7a8a", lineHeight: 1.85, marginBottom: 14 }}>
               Hi there! I&#39;m a front-end and digital experience professional based in Taipei, with experience in website development, interactive design, SEO improvement, and user experience optimization.
@@ -610,63 +614,59 @@ export default function Home() {
       </section>
 
       {/* ── PORTFOLIO ─────────────────────────────────────────────────── */}
-      <section id="portfolio" style={{ padding: "72px 5%" }}>
-        <div style={{ maxWidth: 720, margin: "0 auto" }}>
+      <section id="portfolio" style={{ padding: "72px 0 80px", background: "#eaf6fb" }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 5%" }}>
           <p style={{ color: "#7ec8e3", fontWeight: 600, fontSize: 12, letterSpacing: "0.14em", marginBottom: 12, textTransform: "uppercase", textAlign: "center" }}>My Work</p>
           <h2 style={{ fontFamily: "'DM Serif Display',serif", fontSize: "clamp(24px,3.5vw,38px)", color: "#2a5a70", fontWeight: 400, textAlign: "center", marginBottom: 44 }}>Selected Projects</h2>
-
-          <div style={{ position: "relative" }}>
-            <div {...portfolioSwipe} style={{ overflow: "hidden", borderRadius: 22, touchAction: "pan-y" }}>
-              <div style={{ display: "flex", transition: "transform 0.5s cubic-bezier(0.4,0,0.2,1)", transform: `translateX(-${carouselIndex * 100}%)` }}>
-                {PROJECTS.map((proj, i) => (
-                 <div key={i} style={{ minWidth: "100%", background: "white", borderRadius: 24, border: "1.5px solid #d8f0f8" }}>
-                    <div style={{ height: 360, background: `linear-gradient(135deg, ${proj.color}55, ${proj.color}22)`, 
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        objectFit: "cover", position: "relative", borderRadius: "22px 22px 0 0" }}>
-                    <Image
-                        // loader={imageLoader}
-                        src={proj.src}
-                        fill
-                        priority={i === carouselIndex}
-                        loading={Math.abs(i - carouselIndex) <= 1 ? "eager" : "lazy"}
-                        style={{ objectFit: 'cover', objectPosition: "left top", borderRadius: "22px 22px 0 0", ...(proj.isPhoto && photoStyle) }}
-                        alt={proj.alt} />
-                    {/* <div style={{ width: 80, height: 80, borderRadius: "50%", border: `6px solid ${proj.color}`, opacity: 0.5 }} /> */}
-                    {/* <div style={{ position: "absolute", top: 20, right: 24, background: `${proj.color}33`, color: "#4a8fa8", border: `1px solid ${proj.color}88`, borderRadius: 999, padding: "4px 14px", fontSize: 12, fontWeight: 600 }}>{proj.tag}</div> */}
+ 
+          {/* flex row: ‹ [card] › */}
+          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+ 
+            <button className="carousel-btn" onClick={prevSlide} style={{ flexShrink: 0 }}>‹</button>
+ 
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <div {...portfolioSwipe} style={{ overflow: "hidden", borderRadius: 22, touchAction: "pan-y" }}>
+                <div style={{ display: "flex", transition: "transform 0.5s cubic-bezier(0.4,0,0.2,1)", transform: `translateX(-${carouselIndex * 100}%)` }}>
+                  {PROJECTS.map((proj, i) => (
+                    <div key={i} style={{ minWidth: "100%", background: "white", borderRadius: 22, border: "1.5px solid #d8f0f8" }}>
+                      <div className="proj-img" style={{ position: "relative", position: "relative", borderRadius: "20px 20px 0 0", overflow: "hidden", background: `linear-gradient(135deg,${proj.color}55,${proj.color}22)` }}>
+                        <Image
+                          src={proj.src}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 80vw"
+                          priority={i === carouselIndex}
+                          loading={Math.abs(i - carouselIndex) <= 1 ? "eager" : "lazy"}
+                          style={{ objectFit: "cover", objectPosition: "left top", ...(proj.isPhoto && photoStyle) }}
+                          alt={proj.alt}
+                        />
+                      </div>
+                      <div style={{ padding: "28px 32px 36px" }}>
+                        <h3 style={{ fontFamily: "'DM Serif Display',serif", fontSize: 26, color: "#2a5a70", marginBottom: 10, fontWeight: 400 }}>{proj.title}</h3>
+                        <p style={{ fontSize: 16, color: "#7a9aaa", lineHeight: 1.6 }}>{proj.desc}</p>
+                        {proj.link && (
+                          <a href={proj.link} target="_blank" rel="noreferrer" style={{
+                            display: "inline-block", marginTop: 24,
+                            background: "transparent", border: `1.5px solid ${proj.color}`,
+                            color: "#4a8fa8", borderRadius: 999, padding: "9px 24px",
+                            fontFamily: "inherit", fontSize: 14, fontWeight: 600, cursor: "pointer",
+                          }}>View →</a>
+                        )}
+                      </div>
                     </div>
-                    <div style={{ padding: "28px 32px 36px" }}>
-                    <h3 style={{ fontFamily: "'DM Serif Display', serif", fontSize: 26, color: "#2a5a70", marginBottom: 10, fontWeight: 400 }}>{proj.title}</h3>
-                    <p style={{ fontSize: 16, color: "#7a9aaa", lineHeight: 1.6 }}>{proj.desc}</p>
-                    { proj.link && 
-                        <a href={proj.link} target="_blank" rel="noreferrer"
-                          style={{
-                            display: "inline-block",
-                            marginTop: 24, 
-                            background: "transparent", 
-                            border: `1.5px solid ${proj.color}`, 
-                            color: "#4a8fa8", 
-                            borderRadius: 999, 
-                            padding: "9px 24px", 
-                            fontFamily: "inherit", 
-                            fontSize: 14, 
-                            fontWeight: 600, 
-                            cursor: "pointer" 
-                          }}>View →</a>}
-                    </div>
+                  ))}
                 </div>
-                ))}
               </div>
             </div>
-
-            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 14, marginTop: 24 }}>
-              <button className="carousel-btn" onClick={prevSlide}>‹</button>
-              <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                {PROJECTS.map((_, i) => (
-                  <div key={i} className={`dot-indicator${i === carouselIndex ? " active" : ""}`} onClick={() => setCarouselIndex(i)} />
-                ))}
-              </div>
-              <button className="carousel-btn" onClick={nextSlide}>›</button>
-            </div>
+ 
+            <button className="carousel-btn" onClick={nextSlide} style={{ flexShrink: 0 }}>›</button>
+ 
+          </div>
+ 
+          {/* Dots */}
+          <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 20 }}>
+            {PROJECTS.map((_, i) => (
+              <div key={i} className={`dot-indicator${i === carouselIndex ? " active" : ""}`} onClick={() => setCarouselIndex(i)} />
+            ))}
           </div>
         </div>
       </section>
@@ -684,7 +684,7 @@ export default function Home() {
             style={{ display: "block", width: "100%", height: "clamp(48px,6vw,88px)" }}>
             <defs>
               <linearGradient id="waveGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#f8fcff" />
+                <stop offset="0%" stopColor="#eaf6fb" />
                 <stop offset="100%" stopColor="#f0f9ff" />
               </linearGradient>
             </defs>
