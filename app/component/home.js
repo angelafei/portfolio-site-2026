@@ -394,6 +394,7 @@ export default function Home() {
           .skills-grid   { grid-template-columns:1fr !important; }
           .hero-btns     { flex-direction:column !important; align-items:center !important; }
           .hero-btns button { width:200px; }
+          .hero-btns a { width:200px; }
           .footer-links  { flex-wrap:wrap !important; gap:16px !important; }
         }
 
