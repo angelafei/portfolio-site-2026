@@ -348,6 +348,18 @@ export default function Home() {
         .dot-indicator       { width:8px; height:8px; border-radius:50%; background:#c8e8f4; cursor:pointer; transition:all 0.2s; }
         .dot-indicator.active{ background:#7ec8e3; width:22px; border-radius:4px; }
 
+        .skills-carousel { --skill-card-width:min(320px, 80vw); --skill-offset:clamp(48px, 8vw, 120px); }
+        .skills-window { overflow:hidden; padding:20px 0 32px 16px; touch-action:pan-y; }
+        .skills-card { padding:28px 24px 32px; }
+        @media (max-width: 768px) {
+          .skills-carousel { --skill-card-width:min(320px, calc(100vw - 48px)); --skill-offset:calc((100% - var(--skill-card-width)) / 2); padding-bottom:52px; }
+          .skills-window { padding:12px 0 24px; }
+          .skills-card { padding:24px 20px 28px; }
+          .skills-carousel .carousel-btn { top:auto !important; bottom:0; transform:none !important; width:44px; height:44px; }
+          .skills-carousel .skills-prev { left:calc(50% - 54px) !important; }
+          .skills-carousel .skills-next { right:calc(50% - 54px) !important; }
+        }
+
         /* CONTACT */
         .contact-input      { width:100%; padding:12px 16px; border:1.5px solid #d5eef8; border-radius:12px; font-family:inherit; font-size:15px; background:white; color:#333; outline:none; transition:border-color 0.2s; }
         .contact-input:focus{ border-color:#7ec8e3; }
@@ -662,23 +674,23 @@ export default function Home() {
         </div>
 
         {/* Carousel track — shows 3 cards on desktop, 1 on mobile */}
-        <div style={{ position: "relative" }}>
+        <div className="skills-carousel" style={{ position: "relative" }}>
 
           {/* Prev button */}
           <button
-            className="carousel-btn"
+            className="carousel-btn skills-prev"
+            aria-label="Previous skill category"
             onClick={() => setSkillIndex(i => (i - 1 + SKILLS.length) % SKILLS.length)}
             style={{ position: "absolute", left: "clamp(8px,3vw,32px)", top: "50%", transform: "translateY(-50%)", zIndex: 10 }}
           >‹</button>
 
           {/* Sliding window */}
-          <div {...skillsSwipe}
-            style={{ overflow: "hidden", padding: "20px 0 32px 16px", touchAction: "pan-y" }}>
+          <div {...skillsSwipe} className="skills-window">
             <div style={{
               display: "flex",
               gap: 20,
               transition: "transform 0.45s cubic-bezier(0.4,0,0.2,1)",
-              transform: `translateX(calc(-${skillIndex} * (min(320px, 80vw) + 20px) + clamp(48px, 8vw, 120px)))`,
+              transform: `translateX(calc(-${skillIndex} * (var(--skill-card-width) + 20px) + var(--skill-offset)))`,
               willChange: "transform",
             }}>
               {SKILLS.map((cat, i) => {
@@ -688,13 +700,13 @@ export default function Home() {
                 return (
                   <div
                     key={cat.category}
+                    className="skills-card"
                     onClick={() => setSkillIndex(i)}
                     style={{
                       flexShrink: 0,
-                      width: "min(320px, 80vw)",
+                      width: "var(--skill-card-width)",
                       background: "white",
                       borderRadius: 20,
-                      padding: "28px 24px 32px",
                       border: isCurrent ? `2px solid ${cat.color}` : "1.5px solid #d8f0f8",
                       boxShadow: isCurrent ? `0 8px 32px ${cat.color}33` : "0 2px 12px rgba(126,200,227,0.06)",
                       opacity: isCurrent ? 1 : isAdj ? 0.7 : 0.35,
@@ -728,6 +740,8 @@ export default function Home() {
                           fontWeight: 500,
                           lineHeight: 1.4,
                           letterSpacing: "0.01em",
+                          maxWidth: "100%",
+                          overflowWrap: "anywhere",
                           WebkitFontSmoothing: "antialiased",
                         }}>{item}</span>
                       ))}
@@ -740,7 +754,8 @@ export default function Home() {
 
           {/* Next button */}
           <button
-            className="carousel-btn"
+            className="carousel-btn skills-next"
+            aria-label="Next skill category"
             onClick={() => setSkillIndex(i => (i + 1) % SKILLS.length)}
             style={{ position: "absolute", right: "clamp(8px,3vw,32px)", top: "50%", transform: "translateY(-50%)", zIndex: 10 }}
           >›</button>
