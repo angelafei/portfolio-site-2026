@@ -1,10 +1,7 @@
 "use client"
-import Image from "next/image";
+import Journey from "./journey";
+import ProjectsCarousel from "./projects-carousel";
 import { useState, useEffect, useRef, useCallback } from "react";
-
-const imageLoader = ({ src, quality }) => {
-  return `https://angelaf-portfolio.onrender.com/${src}?q=${quality || 75}`
-}
 
 // ── useSwipe ──────────────────────────────────────────────────────────────────
 // Attach to any container ref. onLeft / onRight fire after a swipe ≥ threshold px.
@@ -63,7 +60,7 @@ const SKILLS = [
 ];
 const PROJECTS = [
   { title: "Trend Micro",
-    src: "/images/trendmicro-homepage.png",
+    src: "/images/trendmicro-homepage.webp",
     alt: "Trend Micro U.S. Official Site",
     desc: "Closely collaborated with PMs, HIE, and marketing teams from different countries to jointly design and develop web pages that meet diverse market requirements while ensuring high usability and an excellent user experience.",
     // tag: "Web",
@@ -71,7 +68,7 @@ const PROJECTS = [
     isPhoto: false
   },
   { title: "NowTV",
-    src: "/images/nowtv.png",
+    src: "/images/nowtv.webp",
     alt: "NowTV Website",
     desc: "NowTV is a brand under the UK-based Sky Group. During my tenure, I was responsible for developing the official website and the NowTV Player, and closely collaborated with over a hundred engineers from various disciplines to maintain and enhance a large-scale codebase.",
     // tag: "UI/UX",
@@ -79,7 +76,7 @@ const PROJECTS = [
     isPhoto: false
   },
   { title: "Cameo",
-    src: "/images/cameo-case-ai-02-content-01.jpg",
+    src: "/images/cameo-case-ai-02-content-01.webp",
     alt: "Cameo Website",
     desc: "Collaborated with the Environmental Protection Administration (EPA) of the Executive Yuan to leverage large-scale IoT environmental sensing data across multiple counties and cities, develop an easy-to-use user interface, analyze potential pollution hotspots, and detect sudden pollution incidents in real time.",
     // tag: "UI/UX",
@@ -87,7 +84,7 @@ const PROJECTS = [
     isPhoto: false
   },
   { title: "Dudoo",
-    src: "/images/dudoo.png",
+    src: "/images/dudoo.webp",
     alt: "Dudoo Website",
     desc: "Dudoo is an internal startup brand under the Foxconn Group. It initially focused on providing restaurant recommendation services and later expanded into POS system development, collaborating with numerous restaurants. During my tenure, I was responsible for assisting in the development of the official website and the POS system interface.",
     // tag: "Illustration",
@@ -103,7 +100,7 @@ const PROJECTS = [
     isPhoto: false
   },
   { title: "3D Cat Companion",
-    src: "/images/cat-game.png",
+    src: "/images/cat-game.webp",
     alt: "Cat Game",
     desc: "A personal practice project built with React and React Three Fiber, focused on mastering 3D web development and custom animation logic. It features a soft, watercolor-inspired cat companion you can feed, play with, groom, and put to sleep. (Active Development)",
     // tag: "Web",
@@ -121,7 +118,7 @@ const PROJECTS = [
     link: "https://pawdiary.onrender.com/"
   },
   { title: "Arduino Project",
-    src: "/images/arduino-project.png",
+    src: "/images/arduino-project.webp",
     alt: "Arduino Project",
     desc: "An interactive installation showcased at the University of the Arts London exhibition, combining Arduino, sensors, handcrafted props, and performer audio to create playful and immersive audience interactions.",
     // tag: "Web",
@@ -245,7 +242,6 @@ function InteractiveBlob({ blob, offsetX, offsetY, hovered, onEnter, onLeave }) 
 // ── Main Page ────────────────────────────────────────────────────────────────
 export default function Home() {
   const [mounted,       setMounted]       = useState(false);
-  const [carouselIndex, setCarouselIndex] = useState(0);
   const [skillIndex,    setSkillIndex]    = useState(0);
   const [mousePos,      setMousePos]      = useState({ x: 0, y: 0 });
   const [hoveredBlob,   setHoveredBlob]   = useState(null);
@@ -273,14 +269,8 @@ export default function Home() {
     //     setMenuOpen(false);
     //     return;
     // }
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); setMenuOpen(false); 
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); setMenuOpen(false);
   };
-  const nextSlide = ()    => setCarouselIndex((i) => (i + 1) % PROJECTS.length);
-  const prevSlide = ()    => setCarouselIndex((i) => (i - 1 + PROJECTS.length) % PROJECTS.length);
-
-  // Swipe for portfolio carousel
-  const portfolioSwipe = useSwipe(nextSlide, prevSlide);
-
   // Swipe for skills carousel
   const skillNext = useCallback(() => setSkillIndex(i => (i + 1) % SKILLS.length), []);
   const skillPrev = useCallback(() => setSkillIndex(i => (i - 1 + SKILLS.length) % SKILLS.length), []);
@@ -347,7 +337,7 @@ export default function Home() {
           .proj-desc         { font-size: 13px; line-height: 1.55; }
           .swipe-hint        { display: block; text-align: center; font-size: 11px; color: #aaccd8; letter-spacing: 0.08em; padding: 6px 0 2px; }
         }
-        
+
         /* SKILL TAGS */
         .skill-tag       { background:rgba(126,200,227,0.15); color:#3a8fa8; border:1px solid rgba(126,200,227,0.35); border-radius:20px; padding:5px 14px; font-size:13px; display:inline-block; margin:4px; transition:all 0.2s; }
         .skill-tag:hover { background:rgba(126,200,227,0.3); transform:translateY(-2px); }
@@ -419,7 +409,7 @@ export default function Home() {
           {NAV_ITEMS.map((item) => (
             item.toLowerCase() === 'contact' ?
             <a key={item} className="nav-link" href="mailto:future2931@gmail.com">{item}</a> :
-            <span key={item} className="nav-link" onClick={() => scrollTo(item.toLowerCase())}>{item}</span>
+            <span key={item} className="nav-link" onClick={() => scrollTo(item === "About" ? "journey" : item.toLowerCase())}>{item}</span>
           ))}
         </div>
 
@@ -436,7 +426,7 @@ export default function Home() {
             {NAV_ITEMS.map((item) => (
               item.toLowerCase() === 'contact' ?
               <a key={item} className="nav-link" href="mailto:future2931@gmail.com">{item}</a> :
-              <span key={item} className="nav-link" onClick={() => scrollTo(item.toLowerCase())}>{item}</span>
+              <span key={item} className="nav-link" onClick={() => scrollTo(item === "About" ? "journey" : item.toLowerCase())}>{item}</span>
             ))}
           </div>
         )}
@@ -525,9 +515,16 @@ export default function Home() {
           </div>
         </div>
 
+        {/* Blend the original hero into the journey section without a hard edge. */}
+        <div aria-hidden="true" style={{
+          position: "absolute", inset: "auto 0 0", height: 85, zIndex: 3,
+          background: "linear-gradient(to bottom, transparent, #b2e8ea)",
+          pointerEvents: "none",
+        }} />
+
         {/* Scroll indicator */}
         <div style={{
-          position: "absolute", bottom: 32, left: "50%",
+          position: "absolute", bottom: 32, left: "50%", zIndex: 4,
           transform: "translateX(-50%)",
           textAlign: "center", color: "rgba(255,255,255,0.7)",
           fontSize: 10, letterSpacing: "0.2em", fontWeight: 500,
@@ -538,6 +535,8 @@ export default function Home() {
           <div style={{ margin: "8px auto 0", width: 1, height: 40, background: "rgba(255,255,255,0.4)" }} />
         </div>
       </section>
+
+      <Journey />
 
       {/* ── ABOUT ─────────────────────────────────────────────────────── */}
       <section id="about" style={{ padding: "90px 5% 72px", maxWidth: 1100, margin: "0 auto" }}>
@@ -628,57 +627,8 @@ export default function Home() {
         <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 5%" }}>
           <p style={{ color: "#7ec8e3", fontWeight: 600, fontSize: 12, letterSpacing: "0.14em", marginBottom: 12, textTransform: "uppercase", textAlign: "center" }}>My Work</p>
           <h2 style={{ fontFamily: "'DM Serif Display',serif", fontSize: "clamp(24px,3.5vw,38px)", color: "#2a5a70", fontWeight: 400, textAlign: "center", marginBottom: 44 }}>Selected Projects</h2>
- 
-          {/* flex row: ‹ [card] › */}
-          <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
- 
-            <button className="carousel-btn portfolio-arrow" onClick={prevSlide} style={{ flexShrink: 0 }}>‹</button>
- 
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <div {...portfolioSwipe} style={{ overflow: "hidden", borderRadius: 22, touchAction: "pan-y" }}>
-                <div style={{ display: "flex", transition: "transform 0.5s cubic-bezier(0.4,0,0.2,1)", transform: `translateX(-${carouselIndex * 100}%)` }}>
-                  {PROJECTS.map((proj, i) => (
-                    <div key={i} style={{ minWidth: "100%", background: "white", borderRadius: 22, border: "1.5px solid #d8f0f8" }}>
-                      <div className="proj-img" style={{ position: "relative", borderRadius: "20px 20px 0 0", overflow: "hidden", background: `linear-gradient(135deg,${proj.color}55,${proj.color}22)` }}>
-                        <Image
-                          src={proj.src}
-                          fill
-                          sizes="(max-width: 768px) 100vw, 80vw"
-                          priority={i === carouselIndex}
-                          loading={Math.abs(i - carouselIndex) <= 1 ? "eager" : "lazy"}
-                          style={{ objectFit: "cover", objectPosition: "left top", ...(proj.isPhoto && photoStyle) }}
-                          alt={proj.alt}
-                        />
-                      </div>
-                      <div style={{ padding: "28px 32px 36px" }}>
-                        <h3 style={{ fontFamily: "'DM Serif Display',serif", fontSize: 26, color: "#2a5a70", marginBottom: 10, fontWeight: 400 }}>{proj.title}</h3>
-                        <p className="proj-desc" style={{ color: "#7a9aaa" }}>{proj.desc}</p>
-                        {proj.link && (
-                          <a href={proj.link} target="_blank" rel="noreferrer" style={{
-                            display: "inline-block", marginTop: 24,
-                            background: "transparent", border: `1.5px solid ${proj.color}`,
-                            color: "#4a8fa8", borderRadius: 999, padding: "9px 24px",
-                            fontFamily: "inherit", fontSize: 14, fontWeight: 600, cursor: "pointer",
-                          }}>View →</a>
-                        )}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
- 
-            <button className="carousel-btn portfolio-arrow" onClick={nextSlide} style={{ flexShrink: 0 }}>›</button>
- 
-          </div>
- 
-          {/* Dots + swipe hint */}
-          <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 16 }}>
-            {PROJECTS.map((_, i) => (
-              <div key={i} className={`dot-indicator${i === carouselIndex ? " active" : ""}`} onClick={() => setCarouselIndex(i)} />
-            ))}
-          </div>
-           <div className="swipe-hint">← SWIPE →</div>
+
+          <ProjectsCarousel projects={PROJECTS} />
         </div>
       </section>
 
@@ -688,7 +638,7 @@ export default function Home() {
 
       {/* ── SKILLS ────────────────────────────────────────────────────── */}
       <section id="skills" style={{ padding: "0 0 80px", background: "#faf6d8", overflow: "hidden" }}>
-        
+
         {/* Wave divider — blends portfolio's white/light-blue into skills' yellow */}
         <div style={{ lineHeight: 0, marginBottom: 0 }}>
           <svg viewBox="0 0 1440 88" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none"

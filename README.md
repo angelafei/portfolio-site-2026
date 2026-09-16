@@ -1,36 +1,34 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Angela Fei — Portfolio 2026
 
-## Getting Started
+This working copy belongs to `angelafei/portfolio-2026-revamp`. The original `angelafei/portfolio-site-2026` repository is unchanged.
 
-First, run the development server:
+## Design
 
-```bash
+Restores the original portfolio design from `8a7641b`, then adds a My Journey section directly after the hero. The new section follows Angela's supplied image with a responsive timeline, line icons, paper plane, soft wave, and backgrounds that blend into the hero and About section.
+
+Timeline dates, locations, and descriptions follow the supplied reference image. The View Experience link opens the original portfolio section.
+
+## Development and preview
+
+```sh
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run lint
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The static export is written to `dist/`. To preview the built site locally:
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+```sh
+python3 -m http.server 4173 --bind 127.0.0.1 --directory dist
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open `http://127.0.0.1:4173/#journey`.
 
-## Learn More
+## Files
 
-To learn more about Next.js, take a look at the following resources:
+- `app/component/home.js`: original homepage with the journey inserted after the hero.
+- `app/component/journey.js`: reference-image timeline content and SVG illustrations.
+- `app/component/journey.module.css`: isolated responsive styles and background transitions.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Analytics stays opt-in via `NEXT_PUBLIC_GA_ID` to avoid adding local preview traffic to the original site's analytics. Updated dependency fixes from the previous revamp are retained.
