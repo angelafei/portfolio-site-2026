@@ -497,7 +497,7 @@ export default function Home() {
             transform: mounted ? "translateY(0)" : "translateY(20px)",
             transition: "opacity 1s ease 0.55s, transform 1s ease 0.55s",
           }}>
-            Front-end Developer & Digital Experience Specialist
+            Front-end / Software Developer & Digital Experience Specialist
           </p>
           <div className="hero-btns" style={{
             marginTop: 32, display: "flex", gap: 14, justifyContent: "center",
@@ -561,7 +561,7 @@ export default function Home() {
               Bridging design, code, <br /> and user experience.
             </h2>
             <p style={{ fontSize: 15, color: "#5a7a8a", lineHeight: 1.85, marginBottom: 14 }}>
-              Hi there! I&#39;m a front-end and digital experience professional based in Taipei, with experience in website development, interactive design, SEO improvement, and user experience optimization.
+              Hi there! I&#39;m a front-end / software and digital experience professional based in Taipei, with experience in website development, interactive design, SEO improvement, and user experience optimization.
             </p>
             <p style={{ fontSize: 15, color: "#5a7a8a", lineHeight: 1.85 }}>
               I enjoy creating user-friendly websites and digital experiences that are visually polished, easy to use, and aligned with both business goals and user needs.
