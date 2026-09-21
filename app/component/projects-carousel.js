@@ -3,12 +3,14 @@
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import styles from './projects.module.css';
+import CaseStudyDialog from './case-studies';
 
 export default function ProjectsCarousel({ projects }) {
   const track = useRef(null);
   const drag = useRef(null);
   const [page, setPage] = useState(0);
   const [perPage, setPerPage] = useState(2);
+  const [caseStudy, setCaseStudy] = useState(null);
   const pages = Math.ceil(projects.length / perPage);
 
   const stride = () => track.current.clientWidth + parseFloat(getComputedStyle(track.current).columnGap);
@@ -52,7 +54,7 @@ export default function ProjectsCarousel({ projects }) {
       }}
       onDragStart={event => event.preventDefault()}
       onPointerDown={event => {
-        if (event.pointerType !== 'mouse' || event.button !== 0 || event.target.closest('a')) return;
+        if (event.pointerType !== 'mouse' || event.button !== 0 || event.target.closest('a, button')) return;
         drag.current = { x: event.clientX, scroll: track.current.scrollLeft };
         track.current.style.scrollSnapType = 'none';
         track.current.style.cursor = 'grabbing';
@@ -65,6 +67,7 @@ export default function ProjectsCarousel({ projects }) {
           <Image src={project.src} alt={project.alt} fill sizes="(max-width: 700px) 90vw, (max-width: 1200px) 44vw, 500px" loading="lazy" style={{ objectFit: project.isPhoto ? 'contain' : 'cover', objectPosition: 'left top' }} />
         </div>
         <div className={styles.copy}><h3>{project.title}</h3><p>{project.desc}</p>
+          {project.caseStudy && <button className={styles.link} type="button" aria-haspopup="dialog" aria-label={`Read ${project.title} case study`} onClick={event => { event.currentTarget.focus(); setCaseStudy(project.caseStudy); }}>Mini Case Study <span aria-hidden="true">↗</span></button>}
           {project.link && <a className={styles.link} href={project.link} target="_blank" rel="noopener noreferrer" aria-label={`View ${project.title} (opens in a new tab)`}>View Project <span aria-hidden="true">↗</span></a>}
         </div>
       </article>)}
@@ -77,5 +80,6 @@ export default function ProjectsCarousel({ projects }) {
       </div>
       <button className={styles.arrow} type="button" onClick={() => goTo(page + 1)} disabled={page === pages - 1} aria-label="Next projects">›</button>
     </div>
+    <CaseStudyDialog studyId={caseStudy} onClose={() => setCaseStudy(null)} />
   </div>;
 }

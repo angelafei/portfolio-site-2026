@@ -60,6 +60,7 @@ const SKILLS = [
 ];
 const PROJECTS = [
   { title: "Trend Micro",
+    caseStudy: "trend-micro",
     src: "/images/trendmicro-homepage.webp",
     alt: "Trend Micro U.S. Official Site",
     desc: "Closely collaborated with PMs, HIE, and marketing teams from different countries to jointly design and develop web pages that meet diverse market requirements while ensuring high usability and an excellent user experience.",
@@ -68,6 +69,7 @@ const PROJECTS = [
     isPhoto: false
   },
   { title: "NowTV",
+    caseStudy: "now-tv",
     src: "/images/nowtv.webp",
     alt: "NowTV Website",
     desc: "NowTV is a brand under the UK-based Sky Group. During my tenure, I was responsible for developing the official website and the NowTV Player, and closely collaborated with over a hundred engineers from various disciplines to maintain and enhance a large-scale codebase.",
