@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint --max-warnings=0"
   },
   "dependencies": {
     "next": "^16.2.3",
@@ -18,5 +17,8 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.2",
     "tailwindcss": "^4"
+  },
+  "engines": {
+    "node": ">=20.9.0"
   }
 }

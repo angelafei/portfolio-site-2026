@@ -1,7 +1,8 @@
 "use client"
+import { NAV_ITEMS, SKILLS, PROJECTS } from "../content/portfolio";
 import Journey from "./journey";
 import ProjectsCarousel from "./projects-carousel";
-import { useState, useEffect, useRef, useCallback } from "react";
+import { useState, useRef, useCallback } from "react";
 
 // ── useSwipe ──────────────────────────────────────────────────────────────────
 // Attach to any container ref. onLeft / onRight fire after a swipe ≥ threshold px.
@@ -45,124 +46,6 @@ const SHAPES = [
   { type: "diamond",  x: 68, y: 35, size: 9,  color: "#f9e784", delay: 0.1 },
 ];
 
-const NAV_ITEMS  = ["About", "Portfolio", "Skills", "Contact"];
-const SKILLS = [
-  { category: "Frontend", color: "#1a7ab0", bg: "#e8f7ff", items: ["HTML5","CSS3","JavaScript","TypeScript","ReactJS","VueJS","AngularJS","Electron","D3.js","Three.js","FabricJS","Bootstrap","Tailwind","Sass","GraphQL","Responsive Design","Cross-browser Compatibility","Accessibility","Map Libraries","Chart Libraries"], icon: "◇" },
-  { category: "Backend", color: "#0d7a5f", bg: "#e2f5f0", items: ["NodeJS","NextJS","PHP","Python","RESTful API","Apps Script"], icon: "◈" },
-  { category: "Testing", color: "#c4622d", bg: "#fef3eb", items: ["Mocha","Chai","Sinon","Cypress","Selenium","Robot Framework"], icon: "○" },
-  { category: "Build Tools", color: "#5a48c8", bg: "#f0eeff", items: ["Git","Gulp","Webpack","Turbopack","Vite","Babel","NPM","Yarn"], icon: "◇" },
-  { category: "Analytics Marketing", color: "#2e7d4f", bg: "#e8f6ee", items: ["Google Analytics","GA4","GTM","SEO","A/B Testing","Data Tracking"], icon: "◈" },
-  { category: "CMS Tools", color: "#c0364a", bg: "#fdeef0", items: ["Adobe Experience Manager","CMS","Dreamweaver","Microsoft Office Suite","Notion","Jira","Asana","Figma"], icon: "◈" },
-  { category: "Design", color: "#b85c1a", bg: "#fff4e8", items: ["Photoshop","Illustrator","Figma","Canva","UX Design","Wireframing","Prototyping","Design Systems"], icon: "◈" },
-  { category: "OS", color: "#2a6a8a", bg: "#e5f4f9", items: ["Mac","Windows","Linux"], icon: "○" },
-  { category: "Soft Skills", color: "#1e8bcb", bg: "#e5f4f9", items: ["Cross-functional Collaboration","Stakeholder Communication","Project Coordination","Problem Solving","Detail-oriented","Time Management","Remote Collaboration","Multicultural Communication"], icon: "◈" },
-  { category: "Interests", color: "#7a42b8", bg: "#f5eeff", items: ["Handmade Crafts","Reading","Baking","Cooking","Travel","Tarot","Nature Walks","Pet Friendly","Slow Living","Inner Peace","Meditation","Mindfulness","Simplicity","Sustainability"], icon: "◈" },
-];
-const PROJECTS = [
-  { title: "Trend Micro",
-    caseStudy: "trend-micro",
-    src: "/images/trendmicro-homepage.webp",
-    alt: "Trend Micro U.S. Official Site",
-    desc: "Closely collaborated with PMs, HIE, and marketing teams from different countries to jointly design and develop web pages that meet diverse market requirements while ensuring high usability and an excellent user experience.",
-    // tag: "Web",
-    color: "#7ec8e3",
-    isPhoto: false
-  },
-  { title: "NowTV",
-    caseStudy: "now-tv",
-    src: "/images/nowtv.webp",
-    alt: "NowTV Website",
-    desc: "NowTV is a brand under the UK-based Sky Group. During my tenure, I was responsible for developing the official website and the NowTV Player, and closely collaborated with over a hundred engineers from various disciplines to maintain and enhance a large-scale codebase.",
-    // tag: "UI/UX",
-    color: "#f9e784",
-    isPhoto: false
-  },
-  { title: "Cameo",
-    src: "/images/cameo-case-ai-02-content-01.webp",
-    alt: "Cameo Website",
-    desc: "Collaborated with the Environmental Protection Administration (EPA) of the Executive Yuan to leverage large-scale IoT environmental sensing data across multiple counties and cities, develop an easy-to-use user interface, analyze potential pollution hotspots, and detect sudden pollution incidents in real time.",
-    // tag: "UI/UX",
-    color: "#f9e784",
-    isPhoto: false
-  },
-  { title: "Dudoo",
-    src: "/images/dudoo.webp",
-    alt: "Dudoo Website",
-    desc: "Dudoo is an internal startup brand under the Foxconn Group. It initially focused on providing restaurant recommendation services and later expanded into POS system development, collaborating with numerous restaurants. During my tenure, I was responsible for assisting in the development of the official website and the POS system interface.",
-    // tag: "Illustration",
-    color: "#f9c4d2",
-    isPhoto: false
-  },
-  { title: "Stackla",
-    src: "/images/stackla.webp",
-    alt: "Stackla Website",
-    desc: "Stackla is a user-generated content (UGC) platform dedicated to helping brands and businesses collect, manage, curate, moderate, and showcase user-generated content from social media and other channels to enhance marketing effectiveness and improve conversion rates. During my tenure, I was involved in the development and optimization of the platform.",
-    // tag: "Web",
-    color: "#b5e5c8",
-    isPhoto: false
-  },
-  { title: "3D Cat Companion",
-    src: "/images/cat-game.webp",
-    alt: "Cat Game",
-    desc: "A personal practice project built with React and React Three Fiber, focused on mastering 3D web development and custom animation logic. It features a soft, watercolor-inspired cat companion you can feed, play with, groom, and put to sleep.",
-    // tag: "Web",
-    color: "#b5e5c8",
-    isPhoto: false,
-    link: "https://cat-game-e10w.onrender.com/"
-  },
-  { title: "Pet Health Diary",
-    src: "/images/pet-health.png",
-    alt: "Pet Health Diary",
-    desc: "A personal practice project built with Vue 3 and Vite, focused on mastering the modern Composition API and creating smooth micro-interactions. It features a minimalist, soft-toned, watercolor-inspired user interface designed to help pet owners track daily wellness metrics, weight trends, and medical reminders.",
-    // tag: "Web",
-    color: "#b5e5c8",
-    isPhoto: false,
-    link: "https://pawdiary.onrender.com/"
-  },
-  { title: "Arduino Project",
-    src: "/images/arduino-project.webp",
-    alt: "Arduino Project",
-    desc: "An interactive installation showcased at the University of the Arts London exhibition, combining Arduino, sensors, handcrafted props, and performer audio to create playful and immersive audience interactions.",
-    // tag: "Web",
-    color: "#b5e5c8",
-    isPhoto: false,
-    link: "https://player.vimeo.com/video/1194898671"
-  },
-  // { title: "Handcrafted bags",
-  //   src: "/images/S__242098181.jpg",
-  //   alt: "Handcrafted bags",
-  //   desc: "From selecting the fabric to every single stitch, each step is done by hand with great care to craft every detail meticulously.",
-  //   // tag: "Illustration",
-  //   color: "#f9e784",
-  //   isPhoto: true
-  // },
-  // { title: "Camouflage mini backpack",
-  //   src: "/images/S__242098182.jpg",
-  //   alt: "Camouflage mini backpack",
-  //   desc: "Every stitch is infused with passion and crafted by hand with care, creating heartfelt pieces for a beautiful life.",
-  //   // tag: "Illustration",
-  //   color: "#f9e784",
-  //   isPhoto: true
-  // },
-  // { title: "Handcrafted long wallet",
-  //   src: "/images/S__242098183.jpg",
-  //   alt: "Handcrafted long wallet",
-  //   desc: "Fox-patterned fabric blended with soft padding is patiently quilted, each tender stitch weaving a plush, dimensional surface that wraps the long wallet in the timeless elegance of handcrafted artistry.",
-  //   // tag: "Illustration",
-  //   color: "#f9e784",
-  //   isPhoto: true
-  // },
-  // { title: "Striped Skirt",
-  //   src: "/images/S__242098180.jpg",
-  //   alt: "Striped Skirt",
-  //   desc: "Clean tailoring and a contoured waistband, adorned with a delicate side zipper, softly trace the graceful simplicity of muted stripes.",
-  //   // tag: "Illustration",
-  //   color: "#f9e784",
-  //   isPhoto: true
-  // },
-];
-const photoStyle = { objectPosition: "center", objectFit: "contain" };
-
 // ── BLOB CONFIGS ─────────────────────────────────────────────────────────────
 // id 0 = giant hero blob (top-left), id 1 = mid (top-right),
 // id 2 = small accent (bottom-left), id 3 = medium (bottom-right)
@@ -180,16 +63,16 @@ const BLOBS = [
 const PARALLAX = [0.016, 0.026, 0.022, 0.014];
 
 // ── FloatingShape ───────────────────────────────────────────────────────────
-function FloatingShape({ shape, animated }) {
+function FloatingShape({ shape }) {
   const floatIdx = Math.floor(shape.delay * 10) % 3;
   const base = {
     position: "absolute",
     left: `${shape.x}%`,
     top:  `${shape.y}%`,
-    opacity:   animated ? 0.75 : 0,
-    transform: animated ? "translateY(0px)" : "translateY(20px)",
+    opacity: 0.75,
+    transform: "translateY(0px)",
     transition: `opacity 0.8s ease ${shape.delay}s, transform 0.8s ease ${shape.delay}s`,
-    animation: animated ? `float${floatIdx} ${3.5 + shape.delay}s ease-in-out infinite` : "none",
+    animation: `float${floatIdx} ${3.5 + shape.delay}s ease-in-out infinite`,
   };
   if (shape.type === "ring")
     return <div style={{ ...base, width: shape.size, height: shape.size, borderRadius: "50%", border: `${Math.max(2, shape.size * 0.16)}px solid ${shape.color}` }} />;
@@ -200,7 +83,7 @@ function FloatingShape({ shape, animated }) {
   if (shape.type === "triangle")
     return <div style={{ ...base, width: 0, height: 0, borderLeft: `${shape.size * 0.6}px solid transparent`, borderRight: `${shape.size * 0.6}px solid transparent`, borderBottom: `${shape.size}px solid ${shape.color}` }} />;
   if (shape.type === "diamond")
-    return <div style={{ ...base, width: shape.size, height: shape.size, background: shape.color, transform: animated ? "rotate(45deg)" : "rotate(45deg) translateY(20px)" }} />;
+    return <div style={{ ...base, width: shape.size, height: shape.size, background: shape.color, transform: "rotate(45deg)" }} />;
   return null;
 }
 
@@ -243,7 +126,6 @@ function InteractiveBlob({ blob, offsetX, offsetY, hovered, onEnter, onLeave }) 
 
 // ── Main Page ────────────────────────────────────────────────────────────────
 export default function Home() {
-  const [mounted,       setMounted]       = useState(false);
   const [skillIndex,    setSkillIndex]    = useState(0);
   const [mousePos,      setMousePos]      = useState({ x: 0, y: 0 });
   const [hoveredBlob,   setHoveredBlob]   = useState(null);
@@ -251,164 +133,29 @@ export default function Home() {
 
   const heroRef = useRef(null);
 
-  useEffect(() => {
-    const t = setTimeout(() => setMounted(true), 100);
-    return () => clearTimeout(t);
-  }, []);
 
-  // Track mouse position relative to hero section
   const handleMouseMove = useCallback((e) => {
     const rect = heroRef.current?.getBoundingClientRect();
-    if (!rect) return;
+    if (!rect || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const cx = e.clientX - rect.left - rect.width  / 2;
     const cy = e.clientY - rect.top  - rect.height / 2;
     setMousePos({ x: cx, y: cy });
   }, []);
 
   const scrollTo  = (id) => {
-    // if (id === 'contact') {
-    //     window.location.href = "mailto:future2931@gmail.com";
-    //     setMenuOpen(false);
-    //     return;
-    // }
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" }); setMenuOpen(false);
+    document.getElementById(id)?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" }); setMenuOpen(false);
   };
-  // Swipe for skills carousel
   const skillNext = useCallback(() => setSkillIndex(i => (i + 1) % SKILLS.length), []);
   const skillPrev = useCallback(() => setSkillIndex(i => (i - 1 + SKILLS.length) % SKILLS.length), []);
   const skillsSwipe = useSwipe(skillNext, skillPrev);
-  // const skillsSwipe = useSwipe(skillNext, skillPrev);
 
   return (
     <div style={{ fontFamily: "'DM Sans','Nunito',sans-serif", background: "#f8fcff", overflowX: "hidden" }}>
-      <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&family=DM+Serif+Display&display=swap');
 
-        /* float animations */
-        @keyframes float0 { 0%,100%{transform:translateY(0)}  50%{transform:translateY(-12px)} }
-        @keyframes float1 { 0%,100%{transform:translateY(0)}  50%{transform:translateY(-8px)}  }
-        @keyframes float2 { 0%,100%{transform:translateY(0)}  50%{transform:translateY(-16px)} }
-        @keyframes blobMove { 0%,100%{border-radius:60% 40% 30% 70%/60% 30% 70% 40%} 50%{border-radius:30% 60% 70% 40%/50% 60% 30% 60%} }
-        @keyframes blob0 {
-          0%   { border-radius: 58% 42% 52% 48% / 54% 46% 54% 46%; }
-          25%  { border-radius: 48% 52% 44% 56% / 58% 42% 56% 44%; }
-          50%  { border-radius: 54% 46% 58% 42% / 46% 54% 44% 56%; }
-          75%  { border-radius: 44% 56% 50% 50% / 52% 48% 58% 42%; }
-          100% { border-radius: 58% 42% 52% 48% / 54% 46% 54% 46%; }
-        }
-        @keyframes blob1 {
-          0%   { border-radius: 52% 48% 56% 44% / 46% 54% 48% 52%; }
-          33%  { border-radius: 44% 56% 48% 52% / 56% 44% 54% 46%; }
-          66%  { border-radius: 56% 44% 44% 56% / 50% 50% 46% 54%; }
-          100% { border-radius: 52% 48% 56% 44% / 46% 54% 48% 52%; }
-        }
-        @keyframes blob2 {
-          0%   { border-radius: 50% 50% 54% 46% / 52% 48% 50% 50%; }
-          40%  { border-radius: 46% 54% 50% 50% / 44% 56% 56% 44%; }
-          70%  { border-radius: 56% 44% 46% 54% / 54% 46% 44% 56%; }
-          100% { border-radius: 50% 50% 54% 46% / 52% 48% 50% 50%; }
-        }
-        @keyframes blob3 {
-          0%   { border-radius: 54% 46% 48% 52% / 50% 50% 52% 48%; }
-          30%  { border-radius: 48% 52% 56% 44% / 56% 44% 46% 54%; }
-          60%  { border-radius: 44% 56% 52% 48% / 46% 54% 54% 46%; }
-          100% { border-radius: 54% 46% 48% 52% / 50% 50% 52% 48%; }
-        }
-        @keyframes scrollBounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(8px)} }
-
-        *   { box-sizing:border-box; margin:0; padding:0; }
-        html{ scroll-behavior:smooth; }
-
-        /* NAV */
-        .nav-link       { cursor:pointer; color:rgba(255,255,255,0.85); font-size:14px; font-weight:500; letter-spacing:0.02em; transition:color 0.2s; padding:6px 2px; white-space:nowrap; }
-        .nav-link:hover { color:#fff; }
-
-        /* HAMBURGER */
-        .hamburger      { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:6px; }
-        .hamburger span { display:block; width:22px; height:2px; background:white; border-radius:2px; transition:all 0.3s; }
-
-        /* PORTFOLIO */
-        .portfolio-arrow { display: flex; }
-        .proj-img           { aspect-ratio: 16/7; }
-        .proj-desc          { font-size: 16px; line-height: 1.6; }
-        .swipe-hint         { display: none; }
-
-        @media (max-width: 768px) {
-          .portfolio-arrow  { display: none !important; }
-          .proj-img          { aspect-ratio: 4/3; }
-          .proj-desc         { font-size: 13px; line-height: 1.55; }
-          .swipe-hint        { display: block; text-align: center; font-size: 11px; color: #aaccd8; letter-spacing: 0.08em; padding: 6px 0 2px; }
-        }
-
-        /* SKILL TAGS */
-        .skill-tag       { background:rgba(126,200,227,0.15); color:#3a8fa8; border:1px solid rgba(126,200,227,0.35); border-radius:20px; padding:5px 14px; font-size:13px; display:inline-block; margin:4px; transition:all 0.2s; }
-        .skill-tag:hover { background:rgba(126,200,227,0.3); transform:translateY(-2px); }
-
-        /* CAROUSEL */
-        .carousel-btn       { background:white; border:1.5px solid #e0f0f8; border-radius:50%; width:42px; height:42px; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:18px; color:#3a8fa8; transition:all 0.2s; flex-shrink:0; }
-        .carousel-btn:hover { background:#e8f7ff; border-color:#7ec8e3; }
-        .dot-indicator       { width:8px; height:8px; border-radius:50%; background:#c8e8f4; cursor:pointer; transition:all 0.2s; }
-        .dot-indicator.active{ background:#7ec8e3; width:22px; border-radius:4px; }
-
-        .skills-carousel { --skill-card-width:min(320px, 80vw); --skill-offset:clamp(48px, 8vw, 120px); }
-        .skills-window { overflow:hidden; padding:20px 0 32px 16px; touch-action:pan-y; }
-        .skills-card { padding:28px 24px 32px; }
-        @media (max-width: 768px) {
-          .skills-carousel { --skill-card-width:min(320px, calc(100vw - 48px)); --skill-offset:calc((100% - var(--skill-card-width)) / 2); padding-bottom:52px; }
-          .skills-window { padding:12px 0 24px; }
-          .skills-card { padding:24px 20px 28px; }
-          .skills-carousel .carousel-btn { top:auto !important; bottom:0; transform:none !important; width:44px; height:44px; }
-          .skills-carousel .skills-prev { left:calc(50% - 54px) !important; }
-          .skills-carousel .skills-next { right:calc(50% - 54px) !important; }
-        }
-
-        /* CONTACT */
-        .contact-input      { width:100%; padding:12px 16px; border:1.5px solid #d5eef8; border-radius:12px; font-family:inherit; font-size:15px; background:white; color:#333; outline:none; transition:border-color 0.2s; }
-        .contact-input:focus{ border-color:#7ec8e3; }
-        .send-btn           { background:#7ec8e3; color:white; border:none; border-radius:14px; padding:13px 32px; font-family:inherit; font-size:15px; font-weight:600; cursor:pointer; transition:all 0.2s; letter-spacing:0.02em; }
-        .send-btn:hover     { transform:translateY(-2px); box-shadow:0 8px 24px rgba(126,200,227,0.4); }
-
-        /* FOOTER LINKS */
-        .social-link       { cursor:pointer; color:rgba(255,255,255,0.7); transition:color 0.2s; }
-        .social-link:hover { color:#f9e784; }
-
-        /* ── RESPONSIVE ─────────────────────────────────────────── */
-        @media (max-width: 768px) {
-          .hamburger    { display:flex !important; }
-          .nav-desktop  { display:none !important; }
-          .nav-mobile-menu {
-            display:flex;
-            flex-direction:column;
-            gap:0;
-            position:absolute;
-            top:100%;
-            left:0; right:0;
-            background:rgba(80,175,210,0.97);
-            backdrop-filter:blur(14px);
-            padding:8px 0 16px;
-            border-top:1px solid rgba(255,255,255,0.15);
-          }
-          .nav-mobile-menu .nav-link {
-            padding: 13px 24px;
-            font-size:16px;
-            border-bottom:1px solid rgba(255,255,255,0.08);
-          }
-          .about-grid    { grid-template-columns:1fr !important; gap:48px !important; }
-          .about-avatar  { order:-1; max-width:280px !important; margin:0 auto !important; }
-          .skills-grid   { grid-template-columns:1fr !important; }
-          .hero-btns     { flex-direction:column !important; align-items:center !important; }
-          .hero-btns button { width:200px; }
-          .hero-btns a { width:200px; }
-          .footer-links  { flex-wrap:wrap !important; gap:16px !important; }
-        }
-
-        @media (max-width: 480px) {
-          .about-avatar  { max-width:220px !important; }
-        }
-      `}</style>
 
       {/* ── NAV ───────────────────────────────────────────────────────── */}
-      <nav style={{
+      <a className="skip-link" href="#main-content">Skip to content</a>
+      <nav aria-label="Main navigation" style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 200,
         padding: "14px 24px",
         display: "flex", justifyContent: "space-between", alignItems: "center",
@@ -423,29 +170,30 @@ export default function Home() {
           {NAV_ITEMS.map((item) => (
             item.toLowerCase() === 'contact' ?
             <a key={item} className="nav-link" href="mailto:future2931@gmail.com">{item}</a> :
-            <span key={item} className="nav-link" onClick={() => scrollTo(item === "About" ? "journey" : item.toLowerCase())}>{item}</span>
+            <a key={item} className="nav-link" href={`#${item === "About" ? "journey" : item.toLowerCase()}`} onClick={() => setMenuOpen(false)}>{item}</a>
           ))}
         </div>
 
         {/* Hamburger (mobile) */}
-        <div className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
+        <button type="button" className="hamburger" aria-label="Toggle navigation" aria-expanded={menuOpen} aria-controls="mobile-navigation" onClick={() => setMenuOpen(!menuOpen)}>
           <span style={{ transform: menuOpen ? "rotate(45deg) translate(5px,5px)" : "none" }} />
           <span style={{ opacity: menuOpen ? 0 : 1 }} />
           <span style={{ transform: menuOpen ? "rotate(-45deg) translate(5px,-5px)" : "none" }} />
-        </div>
+        </button>
 
         {/* Mobile dropdown */}
         {menuOpen && (
-          <div className="nav-mobile-menu">
+          <div id="mobile-navigation" className="nav-mobile-menu" onKeyDown={event => { if (event.key === "Escape") { setMenuOpen(false); event.currentTarget.previousElementSibling.focus(); } }}>
             {NAV_ITEMS.map((item) => (
               item.toLowerCase() === 'contact' ?
               <a key={item} className="nav-link" href="mailto:future2931@gmail.com">{item}</a> :
-              <span key={item} className="nav-link" onClick={() => scrollTo(item === "About" ? "journey" : item.toLowerCase())}>{item}</span>
+              <a key={item} className="nav-link" href={`#${item === "About" ? "journey" : item.toLowerCase()}`} onClick={() => setMenuOpen(false)}>{item}</a>
             ))}
           </div>
         )}
       </nav>
 
+      <main id="main-content">
       {/* ── HERO ──────────────────────────────────────────────────────── */}
       <section
         id="hero"
@@ -477,7 +225,7 @@ export default function Home() {
         })}
 
         {/* Floating geometric shapes */}
-        {SHAPES.map((s, i) => <FloatingShape key={i} shape={s} animated={mounted} />)}
+        {SHAPES.map((s, i) => <FloatingShape key={i} shape={s} />)}
 
         {/* Hero text */}
         <div style={{ textAlign: "center", position: "relative", zIndex: 10, padding: "0 24px" }}>
@@ -485,8 +233,7 @@ export default function Home() {
             fontFamily: "'DM Serif Display',serif",
             fontSize: "clamp(36px,7vw,72px)",
             color: "white", fontWeight: 400, letterSpacing: "-0.01em",
-            opacity: mounted ? 1 : 0,
-            transform: mounted ? "translateY(0)" : "translateY(24px)",
+
             transition: "opacity 1s ease 0.3s, transform 1s ease 0.3s",
           }}>
             Hello, I&#39;m Angela Fei
@@ -495,15 +242,14 @@ export default function Home() {
             marginTop: 16,
             fontSize: "clamp(15px,2vw,20px)",
             color: "rgba(255,255,255,0.9)", fontWeight: 300, letterSpacing: "0.04em",
-            opacity: mounted ? 1 : 0,
-            transform: mounted ? "translateY(0)" : "translateY(20px)",
+
             transition: "opacity 1s ease 0.55s, transform 1s ease 0.55s",
           }}>
             Front-end / Software Developer & Digital Experience Specialist
           </p>
           <div className="hero-btns" style={{
             marginTop: 32, display: "flex", gap: 14, justifyContent: "center",
-            opacity: mounted ? 1 : 0,
+
             transition: "opacity 1s ease 0.75s",
           }}>
             <button onClick={() => scrollTo("portfolio")} style={{
@@ -647,8 +393,7 @@ export default function Home() {
       </section>
 
       {/* ── GRADIENT ────────────────────────────────────────────────────── */}
-      {/* <section id="gradient" style={{ padding: "72px 0 80px", background: "linear-gradient(180deg,#f8fcff 0%,#fdfbec 60%,#faf6d8 100%)" }}>
-      </section> */}
+
 
       {/* ── SKILLS ────────────────────────────────────────────────────── */}
       <section id="skills" style={{ padding: "0 0 80px", background: "#faf6d8", overflow: "hidden" }}>
@@ -703,7 +448,6 @@ export default function Home() {
                   <div
                     key={cat.category}
                     className="skills-card"
-                    onClick={() => setSkillIndex(i)}
                     style={{
                       flexShrink: 0,
                       width: "var(--skill-card-width)",
@@ -714,18 +458,12 @@ export default function Home() {
                       opacity: isCurrent ? 1 : isAdj ? 0.7 : 0.35,
                       transform: isCurrent ? "scale(1.02)" : "scale(0.97)",
                       transition: "all 0.4s cubic-bezier(0.4,0,0.2,1)",
-                      cursor: isCurrent ? "default" : "pointer",
                       userSelect: "none",
                     }}
                   >
                     {/* Header row */}
                     <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 18 }}>
-                      {/* <div style={{
-                        width: 40, height: 40, borderRadius: 12,
-                        background: cat.bg,
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        fontSize: 18, color: cat.color, flexShrink: 0,
-                      }}>{cat.icon}</div> */}
+
                       <h3 style={{ fontFamily: "'DM Serif Display',serif", fontSize: 18, color: "#2a5a70", fontWeight: 400, lineHeight: 1.2 }}>{cat.category}</h3>
                     </div>
                     {/* Tags */}
@@ -733,7 +471,6 @@ export default function Home() {
                       {cat.items.map(item => (
                         <span key={item} style={{
                           fontSize: 13,
-                          fontWeight: 600,
                           padding: "5px 13px",
                           borderRadius: 20,
                           background: cat.bg,
@@ -764,46 +501,48 @@ export default function Home() {
         </div>
 
         {/* Dot indicators */}
-        <div style={{ display: "flex", justifyContent: "center", gap: 7, marginTop: 24 }}>
+        <div style={{ display: "flex", justifyContent: "center", gap: 1, marginTop: 24 }}>
           {SKILLS.map((cat, i) => (
-            <div
-              key={i}
+            <button
+              type="button"
+              aria-label={`Show ${cat.category} skills`}
+              aria-current={skillIndex === i ? "true" : undefined}
+              key={cat.category}
               onClick={() => setSkillIndex(i)}
               style={{
-                width: skillIndex === i ? 22 : 7,
-                height: 7,
-                borderRadius: 4,
-                background: skillIndex === i ? SKILLS[skillIndex].color : "#c8e8f4",
+                width: 24,
+                height: 24,
+                padding: 0,
+                border: 0,
+                display: "grid",
+                placeItems: "center",
+                background: "transparent",
                 cursor: "pointer",
-                transition: "all 0.3s ease",
               }}
-            />
+            >
+              <span
+                aria-hidden="true"
+                style={{
+                  display: "block",
+                  width: skillIndex === i ? 22 : 7,
+                  height: 7,
+                  borderRadius: 4,
+                  background: skillIndex === i ? SKILLS[skillIndex].color : "#c8e8f4",
+                  transition: "width 0.3s ease, background 0.3s ease",
+                }}
+              />
+            </button>
           ))}
         </div>
       </section>
 
       {/* ── CONTACT ───────────────────────────────────────────────────── */}
-      {/* <section id="contact" style={{ padding: "72px 5% 100px", background: "linear-gradient(180deg,#f8fcff 0%,#d8f0fa 100%)" }}>
-        <div style={{ maxWidth: 560, margin: "0 auto", textAlign: "center" }}>
-          <p style={{ color: "#7ec8e3", fontWeight: 600, fontSize: 12, letterSpacing: "0.14em", marginBottom: 12, textTransform: "uppercase" }}>Say Hello</p>
-          <h2 style={{ fontFamily: "'DM Serif Display',serif", fontSize: "clamp(24px,3.5vw,38px)", color: "#2a5a70", fontWeight: 400, marginBottom: 14 }}>Let's work together</h2>
-          <p style={{ fontSize: 15, color: "#7a9aaa", lineHeight: 1.75, marginBottom: 40 }}>Have a project in mind or want to chat? Feel free to reach out — I'm always open to new opportunities.</p>
-          <div style={{ display: "flex", flexDirection: "column", gap: 12, textAlign: "left" }}>
-            <input  className="contact-input" placeholder="Your name" />
-            <input  className="contact-input" placeholder="Email address" type="email" />
-            <textarea className="contact-input" placeholder="Tell me about your project..." rows={5} style={{ resize: "vertical" }} />
-            <button className="send-btn" style={{ alignSelf: "center", marginTop: 8 }}>Send Message ✦</button>
-          </div>
-        </div>
-      </section> */}
 
+
+      </main>
       {/* ── FOOTER ────────────────────────────────────────────────────── */}
       <footer style={{ background: "#2a5a70", color: "rgba(255,255,255,0.6)", textAlign: "center", padding: "26px 24px", fontSize: 13 }}>
-        {/* <div className="footer-links" style={{ display: "flex", justifyContent: "center", gap: 28, marginBottom: 14, flexWrap: "wrap" }}>
-          {["LinkedIn", "GitHub", "Dribbble", "Behance"].map((link) => (
-            <span key={link} className="social-link">{link}</span>
-          ))}
-        </div> */}
+
         <div>© 2026 Angela Fei · Crafted with care ✦</div>
       </footer>
     </div>

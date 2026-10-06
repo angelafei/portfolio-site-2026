@@ -1,0 +1,77 @@
+export const NAV_ITEMS  = ["About", "Portfolio", "Skills", "Contact"];
+export const SKILLS = [
+  { category: "Frontend", color: "#1a7ab0", bg: "#e8f7ff", items: ["HTML5","CSS3","JavaScript","TypeScript","ReactJS","VueJS","AngularJS","Electron","D3.js","Three.js","FabricJS","Bootstrap","Tailwind","Sass","GraphQL","Responsive Design","Cross-browser Compatibility","Accessibility","Map Libraries","Chart Libraries"] },
+  { category: "Backend", color: "#0d7a5f", bg: "#e2f5f0", items: ["NodeJS","NextJS","PHP","Python","RESTful API","Apps Script"] },
+  { category: "Testing", color: "#c4622d", bg: "#fef3eb", items: ["Mocha","Chai","Sinon","Cypress","Selenium","Robot Framework"] },
+  { category: "Build Tools", color: "#5a48c8", bg: "#f0eeff", items: ["Git","Gulp","Webpack","Turbopack","Vite","Babel","NPM","Yarn"] },
+  { category: "Analytics Marketing", color: "#2e7d4f", bg: "#e8f6ee", items: ["Google Analytics","GA4","GTM","SEO","A/B Testing","Data Tracking"] },
+  { category: "CMS Tools", color: "#c0364a", bg: "#fdeef0", items: ["Adobe Experience Manager","CMS","Dreamweaver","Microsoft Office Suite","Notion","Jira","Asana","Figma"] },
+  { category: "Design", color: "#b85c1a", bg: "#fff4e8", items: ["Photoshop","Illustrator","Figma","Canva","UX Design","Wireframing","Prototyping","Design Systems"] },
+  { category: "OS", color: "#2a6a8a", bg: "#e5f4f9", items: ["Mac","Windows","Linux"] },
+  { category: "Soft Skills", color: "#1e8bcb", bg: "#e5f4f9", items: ["Cross-functional Collaboration","Stakeholder Communication","Project Coordination","Problem Solving","Detail-oriented","Time Management","Remote Collaboration","Multicultural Communication"] },
+  { category: "Interests", color: "#7a42b8", bg: "#f5eeff", items: ["Handmade Crafts","Reading","Baking","Cooking","Travel","Tarot","Nature Walks","Pet Friendly","Slow Living","Inner Peace","Meditation","Mindfulness","Simplicity","Sustainability"] },
+];
+export const PROJECTS = [
+  { title: "Trend Micro",
+    caseStudy: "trend-micro",
+    src: "/images/trendmicro-homepage.webp",
+    alt: "Trend Micro U.S. Official Site",
+    desc: "Closely collaborated with PMs, HIE, and marketing teams from different countries to jointly design and develop web pages that meet diverse market requirements while ensuring high usability and an excellent user experience.",
+    color: "#7ec8e3",
+    isPhoto: false
+  },
+  { title: "NowTV",
+    caseStudy: "now-tv",
+    src: "/images/nowtv.webp",
+    alt: "NowTV Website",
+    desc: "NowTV is a brand under the UK-based Sky Group. During my tenure, I was responsible for developing the official website and the NowTV Player, and closely collaborated with over a hundred engineers from various disciplines to maintain and enhance a large-scale codebase.",
+    color: "#f9e784",
+    isPhoto: false
+  },
+  { title: "Cameo",
+    src: "/images/cameo-case-ai-02-content-01.webp",
+    alt: "Cameo Website",
+    desc: "Collaborated with the Environmental Protection Administration (EPA) of the Executive Yuan to leverage large-scale IoT environmental sensing data across multiple counties and cities, develop an easy-to-use user interface, analyze potential pollution hotspots, and detect sudden pollution incidents in real time.",
+    color: "#f9e784",
+    isPhoto: false
+  },
+  { title: "Dudoo",
+    src: "/images/dudoo.webp",
+    alt: "Dudoo Website",
+    desc: "Dudoo is an internal startup brand under the Foxconn Group. It initially focused on providing restaurant recommendation services and later expanded into POS system development, collaborating with numerous restaurants. During my tenure, I was responsible for assisting in the development of the official website and the POS system interface.",
+    color: "#f9c4d2",
+    isPhoto: false
+  },
+  { title: "Stackla",
+    src: "/images/stackla.webp",
+    alt: "Stackla Website",
+    desc: "Stackla is a user-generated content (UGC) platform dedicated to helping brands and businesses collect, manage, curate, moderate, and showcase user-generated content from social media and other channels to enhance marketing effectiveness and improve conversion rates. During my tenure, I was involved in the development and optimization of the platform.",
+    color: "#b5e5c8",
+    isPhoto: false
+  },
+  { title: "3D Cat Companion",
+    src: "/images/cat-game.webp",
+    alt: "Cat Game",
+    desc: "A personal practice project built with React and React Three Fiber, focused on mastering 3D web development and custom animation logic. It features a soft, watercolor-inspired cat companion you can feed, play with, groom, and put to sleep.",
+    color: "#b5e5c8",
+    isPhoto: false,
+    link: "https://cat-game-e10w.onrender.com/"
+  },
+  { title: "Pet Health Diary",
+    src: "/images/pet-health.png",
+    alt: "Pet Health Diary",
+    desc: "A personal practice project built with Vue 3 and Vite, focused on mastering the modern Composition API and creating smooth micro-interactions. It features a minimalist, soft-toned, watercolor-inspired user interface designed to help pet owners track daily wellness metrics, weight trends, and medical reminders.",
+    color: "#b5e5c8",
+    isPhoto: false,
+    link: "https://pawdiary.onrender.com/"
+  },
+  { title: "Arduino Project",
+    src: "/images/arduino-project.webp",
+    alt: "Arduino Project",
+    desc: "An interactive installation showcased at the University of the Arts London exhibition, combining Arduino, sensors, handcrafted props, and performer audio to create playful and immersive audience interactions.",
+    color: "#b5e5c8",
+    isPhoto: false,
+    link: "https://player.vimeo.com/video/1194898671"
+  },
+];
+
