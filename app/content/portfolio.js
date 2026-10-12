@@ -49,8 +49,16 @@ export const PROJECTS = [
     color: "#b5e5c8",
     isPhoto: false
   },
+  { title: "FORMA Interior Studio",
+    src: "/images/forma-interior-studio.png",
+    alt: "FORMA Interior Studio 3D interior design editor",
+    desc: "A personal practice project built with Vite and Three.js, developed with an AI-assisted workflow while retaining hands-on ownership of the architecture, interaction design, and validation. It supports furniture placement, 2D/3D views, room customization, material changes, local design saving, model import/export, and an AI-assisted design feature.",
+    color: "#c7d8c6",
+    isPhoto: false,
+    link: "https://interior-design-umq3.onrender.com"
+  },
   { title: "3D Cat Companion",
-    src: "/images/cat-game.webp",
+    src: "/images/cat-game-scene.png",
     alt: "Cat Game",
     desc: "A personal practice project built with React and React Three Fiber, focused on mastering 3D web development and custom animation logic. It features a soft, watercolor-inspired cat companion you can feed, play with, groom, and put to sleep.",
     color: "#b5e5c8",
@@ -74,4 +82,3 @@ export const PROJECTS = [
     link: "https://player.vimeo.com/video/1194898671"
   },
 ];
-
