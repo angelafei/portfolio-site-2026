@@ -1,9 +1,12 @@
 'use client';
 
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
 import styles from './projects.module.css';
-import CaseStudyDialog from './case-studies';
+const CaseStudyDialog = dynamic(() => import('./case-studies'));
+
+const imageLoader = ({ src, width }) => `/images/responsive/${src.split('/').pop().replace(/\.[^.]+$/, '')}-${width}.webp`;
 
 export default function ProjectsCarousel({ projects }) {
   const track = useRef(null);
@@ -64,7 +67,7 @@ export default function ProjectsCarousel({ projects }) {
       onPointerUp={endDrag} onPointerCancel={endDrag}>
       {projects.map((project, index) => <article key={project.title} className={styles.card} aria-roledescription="slide" aria-label={`${index + 1} of ${projects.length}: ${project.title}`}>
         <div className={styles.image} style={{ background: `linear-gradient(135deg,${project.color}55,${project.color}22)` }}>
-          <Image src={project.src} alt={project.alt} fill sizes="(max-width: 700px) 90vw, (max-width: 1200px) 44vw, 500px" loading="lazy" style={{ objectFit: project.isPhoto ? 'contain' : 'cover', objectPosition: 'left top' }} />
+          <Image loader={imageLoader} src={project.src} alt={project.alt} fill sizes="(max-width: 700px) 90vw, (max-width: 1100px) 44vw, 480px" loading="lazy" style={{ objectFit: project.isPhoto ? 'contain' : 'cover', objectPosition: 'left top' }} />
         </div>
         <div className={styles.copy}><h3>{project.title}</h3><p>{project.desc}</p>
           {project.caseStudy && <button className={styles.link} type="button" aria-haspopup="dialog" aria-label={`Read ${project.title} case study`} onClick={event => { event.currentTarget.focus(); setCaseStudy(project.caseStudy); }}>Mini Case Study <span aria-hidden="true">↗</span></button>}
@@ -80,6 +83,6 @@ export default function ProjectsCarousel({ projects }) {
       </div>
       <button className={styles.arrow} type="button" onClick={() => goTo(page + 1)} disabled={page === pages - 1} aria-label="Next projects">›</button>
     </div>
-    <CaseStudyDialog studyId={caseStudy} onClose={() => setCaseStudy(null)} />
+    {caseStudy && <CaseStudyDialog studyId={caseStudy} onClose={() => setCaseStudy(null)} />}
   </div>;
 }

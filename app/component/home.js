@@ -1,6 +1,5 @@
 "use client"
 import { NAV_ITEMS, SKILLS, PROJECTS } from "../content/portfolio";
-import Journey from "./journey";
 import ProjectsCarousel from "./projects-carousel";
 import { useState, useRef, useCallback } from "react";
 
@@ -125,7 +124,7 @@ function InteractiveBlob({ blob, offsetX, offsetY, hovered, onEnter, onLeave }) 
 }
 
 // ── Main Page ────────────────────────────────────────────────────────────────
-export default function Home() {
+export default function Home({ journey }) {
   const [skillIndex,    setSkillIndex]    = useState(0);
   const [mousePos,      setMousePos]      = useState({ x: 0, y: 0 });
   const [hoveredBlob,   setHoveredBlob]   = useState(null);
@@ -296,7 +295,7 @@ export default function Home() {
         </div>
       </section>
 
-      <Journey />
+      {journey}
 
       {/* ── ABOUT ─────────────────────────────────────────────────────── */}
       <section id="about" style={{ padding: "90px 5% 72px", maxWidth: 1100, margin: "0 auto" }}>

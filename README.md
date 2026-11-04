@@ -47,7 +47,9 @@ Open http://127.0.0.1:4173. If an environment cannot run Turbopack's worker proc
 - **React state for interactions:** navigation, skills selection, and project dialogs run on the client; the initial content is still generated at build time.
 - **Native browser primitives:** CSS scroll snapping and `<dialog>` provide carousel and modal behavior without a UI library.
 - **Accessibility:** semantic navigation links, keyboard-operable controls, a skip link, visible focus indicators, and reduced-motion styles. These are implementation features, not a claim of a full accessibility audit.
-- **Images:** `next/image` reserves space with a fixed aspect-ratio container. Server image optimization is disabled for static hosting; screenshots are served as committed.
+- **Images:** `next/image` reserves space with a fixed aspect-ratio container and selects pre-generated WebP sizes through a custom loader, without a server image API. `predev` and `prebuild` generate 360/480/640/960/1440px variants in the ignored `public/images/responsive/` directory using Sharp. Keep originals in `public/images/`; use `npm run dev` or `npm run build` so variants are generated first.
+- **Case studies:** dialog code and styles load when a case-study button is first activated, keeping them out of the initial page bundle.
+- **Journey:** the static timeline renders as a Server Component passed into the interactive homepage, so its rendering code is excluded from browser JavaScript.
 - **Fonts:** Google Fonts loads in the browser with local fallback fonts, so the build does not depend on fetching fonts.
 
 ## Optional analytics

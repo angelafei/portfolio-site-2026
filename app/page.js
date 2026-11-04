@@ -1,5 +1,6 @@
 import Home from "./component/home";
+import Journey from "./component/journey";
 
 export default function App() {
-  return <Home />;
+  return <Home journey={<Journey />} />;
 }
