@@ -26,13 +26,12 @@ const CASES = {
   },
 };
 
-export default function CaseStudyDialog({ studyId, onClose }) {
+export default function CaseStudyDialog({ project, onClose }) {
   const dialogRef = useRef(null);
   const backdropPress = useRef(false);
-  const study = CASES[studyId];
+  const study = CASES[project.caseStudy];
 
   useEffect(() => {
-    if (!study) return;
     const dialog = dialogRef.current;
     const trigger = document.activeElement;
     const previousOverflow = document.body.style.overflow;
@@ -44,25 +43,32 @@ export default function CaseStudyDialog({ studyId, onClose }) {
       document.body.style.overflow = previousOverflow;
       if (trigger?.isConnected) trigger.focus({ preventScroll: true });
     };
-  }, [study]);
+  }, [project]);
 
   return <dialog ref={dialogRef} className={styles.dialog} aria-labelledby="case-study-title" aria-describedby="case-study-scope" onClose={onClose}
     onPointerDown={event => { backdropPress.current = event.target === event.currentTarget; }}
     onClick={event => { if (backdropPress.current && event.target === event.currentTarget) dialogRef.current.close(); }}>
-    {study && <article className={styles.paper}>
+    <article className={styles.paper}>
       <div className={styles.toolbar}>
-        <span>Mini case study</span>
-        <button type="button" onClick={() => dialogRef.current.close()} aria-label="Close case study">Close <span aria-hidden="true">×</span></button>
+        <span>Project details</span>
+        <button type="button" onClick={() => dialogRef.current.close()} aria-label="Close project details">Close <span aria-hidden="true">×</span></button>
       </div>
       <header className={styles.header}>
-        <h2 id="case-study-title">{study.company}</h2>
-        <p id="case-study-scope">{study.scope}</p>
+        <h2 id="case-study-title">{project.title}</h2>
+        <p id="case-study-scope">{project.context}</p>
       </header>
       <div className={styles.story}>
+        <section><h3>My Role</h3><p>{project.role}</p></section>
+        <section><h3>Key Contribution</h3><p>{project.contribution}</p></section>
+        {study && <>
+
         <section><h3>Problem</h3><p>{study.problem}</p></section>
         <section><h3>What I did</h3><div>{study.actions.map(action => <p key={action}>{action}</p>)}</div></section>
         <section><h3>Impact</h3><p>{study.impact}</p></section>
+        </>}
       </div>
-    </article>}
+      <ul className={styles.tags} aria-label="Skills and technologies">{project.tags.map(tag => <li key={tag}>{tag}</li>)}</ul>
+      {project.link && <a className={styles.projectLink} href={project.link} target="_blank" rel="noopener noreferrer" aria-label={`View Project: ${project.title} (opens in a new tab)`}>View Project <span aria-hidden="true">↗</span></a>}
+    </article>
   </dialog>;
 }

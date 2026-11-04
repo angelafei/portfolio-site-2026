@@ -1,27 +1,47 @@
 "use client"
 import { NAV_ITEMS, SKILLS, PROJECTS } from "../content/portfolio";
 import ProjectsCarousel from "./projects-carousel";
-import { useState, useRef, useCallback } from "react";
+import { useState, useRef, useCallback, useEffect } from "react";
 
-// ── useSwipe ──────────────────────────────────────────────────────────────────
-// Attach to any container ref. onLeft / onRight fire after a swipe ≥ threshold px.
+// Pointer gestures support mouse, touch, and pen while preserving vertical scrolling.
 function useSwipe(onLeft, onRight, threshold = 50) {
-  const startX = useRef(null);
+  const start = useRef(null);
+  const [offset, setOffset] = useState(0);
+  const [dragging, setDragging] = useState(false);
 
-  const onTouchStart = useCallback((e) => {
-    startX.current = e.touches[0].clientX;
-  }, []);
-
-  const onTouchEnd = useCallback((e) => {
-    if (startX.current === null) return;
-    const diff = startX.current - e.changedTouches[0].clientX;
-    if (Math.abs(diff) >= threshold) {
-      diff > 0 ? onLeft() : onRight();
-    }
-    startX.current = null;
-  }, [onLeft, onRight, threshold]);
-
-  return { onTouchStart, onTouchEnd };
+  const reset = () => {
+    start.current = null;
+    setOffset(0);
+    setDragging(false);
+  };
+  const handlers = {
+    onPointerDown(event) {
+      if (!event.isPrimary || event.button !== 0) return;
+      start.current = { x: event.clientX, y: event.clientY, id: event.pointerId };
+      setDragging(true);
+      event.currentTarget.setPointerCapture(event.pointerId);
+    },
+    onPointerMove(event) {
+      if (start.current?.id !== event.pointerId) return;
+      const dx = event.clientX - start.current.x;
+      const dy = event.clientY - start.current.y;
+      setOffset(Math.abs(dx) > Math.abs(dy) ? dx : 0);
+    },
+    onPointerUp(event) {
+      if (start.current?.id !== event.pointerId) return;
+      const dx = event.clientX - start.current.x;
+      const dy = event.clientY - start.current.y;
+      reset();
+      if (event.currentTarget.hasPointerCapture(event.pointerId)) event.currentTarget.releasePointerCapture(event.pointerId);
+      if (Math.abs(dx) >= threshold && Math.abs(dx) > Math.abs(dy)) {
+        dx < 0 ? onLeft() : onRight();
+      }
+    },
+    onPointerCancel: reset,
+    onLostPointerCapture: reset,
+    onDragStart: event => event.preventDefault(),
+  };
+  return { handlers, offset, dragging };
 }
 
 // ── SHAPES data ────────────────────────────────────────────────────────────
@@ -123,9 +143,33 @@ function InteractiveBlob({ blob, offsetX, offsetY, hovered, onEnter, onLeave }) 
   );
 }
 
+const LOOP_SKILLS = [...SKILLS, ...SKILLS, ...SKILLS];
+
 // ── Main Page ────────────────────────────────────────────────────────────────
 export default function Home({ journey }) {
-  const [skillIndex,    setSkillIndex]    = useState(0);
+  const [skillPosition, setSkillPosition] = useState(SKILLS.length);
+  const [resettingSkills, setResettingSkills] = useState(false);
+  const skillIndex = ((skillPosition % SKILLS.length) + SKILLS.length) % SKILLS.length;
+
+  // Animate into an identical neighbouring copy, then reset without visible motion.
+  useEffect(() => {
+    if (skillPosition >= SKILLS.length && skillPosition < SKILLS.length * 2) return;
+    const delay = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 470;
+    const timer = setTimeout(() => {
+      setResettingSkills(true);
+      setSkillPosition(SKILLS.length + ((skillPosition % SKILLS.length) + SKILLS.length) % SKILLS.length);
+    }, delay);
+    return () => clearTimeout(timer);
+  }, [skillPosition]);
+
+  useEffect(() => {
+    if (!resettingSkills) return;
+    let secondFrame;
+    const firstFrame = requestAnimationFrame(() => {
+      secondFrame = requestAnimationFrame(() => setResettingSkills(false));
+    });
+    return () => { cancelAnimationFrame(firstFrame); cancelAnimationFrame(secondFrame); };
+  }, [resettingSkills]);
   const [mousePos,      setMousePos]      = useState({ x: 0, y: 0 });
   const [hoveredBlob,   setHoveredBlob]   = useState(null);
   const [menuOpen,      setMenuOpen]      = useState(false);
@@ -144,8 +188,8 @@ export default function Home({ journey }) {
   const scrollTo  = (id) => {
     document.getElementById(id)?.scrollIntoView({ behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "instant" : "smooth" }); setMenuOpen(false);
   };
-  const skillNext = useCallback(() => setSkillIndex(i => (i + 1) % SKILLS.length), []);
-  const skillPrev = useCallback(() => setSkillIndex(i => (i - 1 + SKILLS.length) % SKILLS.length), []);
+  const skillNext = useCallback(() => setSkillPosition(i => i >= SKILLS.length && i < SKILLS.length * 2 ? i + 1 : i), []);
+  const skillPrev = useCallback(() => setSkillPosition(i => i >= SKILLS.length && i < SKILLS.length * 2 ? i - 1 : i), []);
   const skillsSwipe = useSwipe(skillNext, skillPrev);
 
   return (
@@ -422,30 +466,24 @@ export default function Home({ journey }) {
         {/* Carousel track — shows 3 cards on desktop, 1 on mobile */}
         <div className="skills-carousel" style={{ position: "relative" }}>
 
-          {/* Prev button */}
-          <button
-            className="carousel-btn skills-prev"
-            aria-label="Previous skill category"
-            onClick={() => setSkillIndex(i => (i - 1 + SKILLS.length) % SKILLS.length)}
-            style={{ position: "absolute", left: "clamp(8px,3vw,32px)", top: "50%", transform: "translateY(-50%)", zIndex: 10 }}
-          >‹</button>
-
+          <button className="skills-arrow skills-prev" type="button" aria-label="Previous skill category" onClick={skillPrev}>‹</button>
           {/* Sliding window */}
-          <div {...skillsSwipe} className="skills-window">
-            <div style={{
+          <div {...skillsSwipe.handlers} className="skills-window" data-dragging={skillsSwipe.dragging || undefined}>
+            <div className="skills-track" style={{
               display: "flex",
               gap: 20,
-              transition: "transform 0.45s cubic-bezier(0.4,0,0.2,1)",
-              transform: `translateX(calc(-${skillIndex} * (var(--skill-card-width) + 20px) + var(--skill-offset)))`,
+              transition: skillsSwipe.dragging || resettingSkills ? "none" : "transform 0.45s cubic-bezier(0.4,0,0.2,1)",
+              transform: `translateX(calc(-${skillPosition} * (var(--skill-card-width) + 20px) + var(--skill-offset) + ${skillsSwipe.offset}px))`,
               willChange: "transform",
             }}>
-              {SKILLS.map((cat, i) => {
-                const dist = Math.abs(((i - skillIndex) % SKILLS.length + SKILLS.length) % SKILLS.length);
+              {LOOP_SKILLS.map((cat, i) => {
+                const dist = Math.abs(i - skillPosition);
                 const isCurrent = dist === 0;
-                const isAdj = dist === 1 || dist === SKILLS.length - 1;
+                const isAdj = dist === 1;
                 return (
                   <div
-                    key={cat.category}
+                    key={`${cat.category}-${i}`}
+                    aria-hidden={Math.floor(i / SKILLS.length) !== Math.floor(skillPosition / SKILLS.length) || undefined}
                     className="skills-card"
                     style={{
                       flexShrink: 0,
@@ -456,7 +494,7 @@ export default function Home({ journey }) {
                       boxShadow: isCurrent ? `0 8px 32px ${cat.color}33` : "0 2px 12px rgba(126,200,227,0.06)",
                       opacity: isCurrent ? 1 : isAdj ? 0.7 : 0.35,
                       transform: isCurrent ? "scale(1.02)" : "scale(0.97)",
-                      transition: "all 0.4s cubic-bezier(0.4,0,0.2,1)",
+                      transition: resettingSkills ? "none" : "all 0.4s cubic-bezier(0.4,0,0.2,1)",
                       userSelect: "none",
                     }}
                   >
@@ -490,48 +528,20 @@ export default function Home({ journey }) {
             </div>
           </div>
 
-          {/* Next button */}
-          <button
-            className="carousel-btn skills-next"
-            aria-label="Next skill category"
-            onClick={() => setSkillIndex(i => (i + 1) % SKILLS.length)}
-            style={{ position: "absolute", right: "clamp(8px,3vw,32px)", top: "50%", transform: "translateY(-50%)", zIndex: 10 }}
-          >›</button>
+          <button className="skills-arrow skills-next" type="button" aria-label="Next skill category" onClick={skillNext}>›</button>
         </div>
 
-        {/* Dot indicators */}
-        <div style={{ display: "flex", justifyContent: "center", gap: 1, marginTop: 24 }}>
-          {SKILLS.map((cat, i) => (
-            <button
-              type="button"
-              aria-label={`Show ${cat.category} skills`}
-              aria-current={skillIndex === i ? "true" : undefined}
-              key={cat.category}
-              onClick={() => setSkillIndex(i)}
-              style={{
-                width: 24,
-                height: 24,
-                padding: 0,
-                border: 0,
-                display: "grid",
-                placeItems: "center",
-                background: "transparent",
-                cursor: "pointer",
-              }}
-            >
-              <span
-                aria-hidden="true"
-                style={{
-                  display: "block",
-                  width: skillIndex === i ? 22 : 7,
-                  height: 7,
-                  borderRadius: 4,
-                  background: skillIndex === i ? SKILLS[skillIndex].color : "#c8e8f4",
-                  transition: "width 0.3s ease, background 0.3s ease",
-                }}
-              />
-            </button>
-          ))}
+        <div className="skills-navigation">
+          <button className="skills-mobile-arrow" type="button" aria-label="Previous skill category" onClick={skillPrev}>‹</button>
+          <div className="skills-dots">
+              {SKILLS.map((cat, i) => <button
+                type="button" className="skills-dot"
+                aria-label={`Show ${cat.category} skills`}
+                aria-current={skillIndex === i ? "true" : undefined}
+                key={cat.category} onClick={() => setSkillPosition(SKILLS.length + i)}
+              ><span aria-hidden="true" style={{ background: skillIndex === i ? SKILLS[skillIndex].color : undefined }} /></button>)}
+          </div>
+          <button className="skills-mobile-arrow" type="button" aria-label="Next skill category" onClick={skillNext}>›</button>
         </div>
       </section>
 

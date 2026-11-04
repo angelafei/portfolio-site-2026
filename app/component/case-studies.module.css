@@ -33,9 +33,14 @@
 .header h2 { font-family: 'DM Serif Display', Georgia, serif; font-size: clamp(32px, 5vw, 44px); line-height: 1.2; font-weight: 400; color: #2a5a70; margin: 0 0 10px; }
 .header p { font-size: 13px; color: #687b82; line-height: 1.7; }
 .story section { display: grid; grid-template-columns: 100px minmax(0, 1fr); gap: 24px; padding-top: 27px; }
-.story h3 { font-size: 13px; font-weight: 600; line-height: 1.9; color: #2a5a70; }
-.story p { margin: 0; font-size: 14px; line-height: 1.85; color: #526770; }
+.story h3 { font-size: 14px; font-weight: 600; line-height: 1.9; color: #192f3d; }
+.story p { margin: 0; font-size: 15px; line-height: 1.85; color: #35414b; }
 .story p + p { margin-top: 16px; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 28px 0 0; }
+.tags li { border: 1px solid #e0e6eb; background: #f4f6f8; border-radius: 5px; padding: 4px 8px; color: #46545f; font-size: 12px; }
+.projectLink { display: inline-flex; gap: 16px; align-items: center; min-height: 44px; margin-top: 24px; padding: 9px 21px; border: 1px solid #9ed3e5; border-radius: 999px; color: #25627a; font-size: 14px; }
+.projectLink:hover { background: #edf9fd; }
+.projectLink:focus-visible { outline: 3px solid #397f9f; outline-offset: 3px; }
 @media (max-width: 600px) {
   .dialog { width: calc(100% - 24px); max-height: calc(100dvh - 28px); }
   .paper { padding: 0 24px 30px; }

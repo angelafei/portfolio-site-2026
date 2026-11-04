@@ -33,21 +33,39 @@
   flex-direction: column;
   align-items: flex-start;
   flex: 1;
-  padding: 26px 28px 30px;
+  padding: 24px 28px 28px;
 }
 .copy h3 {
   font-family: 'DM Serif Display', Georgia, serif;
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 400;
   line-height: 1.25;
-  color: #2a5a70;
-  margin-bottom: 14px;
+  color: #172e3b;
+  margin-bottom: 10px;
 }
-.copy p {
-  color: #5d7e8d;
+.context {
+  color: #53616b;
   font-size: 14px;
-  line-height: 1.8;
-  margin-bottom: 0;
+  line-height: 1.65;
+  margin: 0;
+  width: 100%;
+}
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+  list-style: none;
+  padding: 22px 0 0;
+  margin: auto 0 0;
+}
+.tags li {
+  border: 1px solid #e0e6eb;
+  border-radius: 5px;
+  background: #f4f6f8;
+  color: #46545f;
+  font-size: 12px;
+  line-height: 1.5;
+  padding: 4px 8px;
 }
 .link {
   background: transparent;
@@ -81,7 +99,6 @@
   .image { aspect-ratio: 16 / 10; }
   .copy { padding: 23px 24px 27px; }
   .copy h3 { font-size: 25px; margin-bottom: 12px; }
-  .copy p { font-size: 14px; line-height: 1.8; }
 }
 @media (prefers-reduced-motion: reduce) { .link { transition: none; } }
 
@@ -98,6 +115,6 @@
 .dot span { width: 7px; height: 7px; border-radius: 999px; background: #b8dce9; }
 .dot[aria-current] span { width: 20px; background: #59b1cf; }
 .counter { color: #5d7e8d; font-size: 11px; letter-spacing: .03em; margin-top: 2px; }
-@media (max-width: 380px) { .controls { gap: 9px; } .dot { width: 23px; } }
+@media (max-width: 380px) { .controls { gap: 8px; } .dot { width: 20px; } }
 
 @media (min-width: 701px) { .card:nth-child(even) { scroll-snap-align: none; } }
