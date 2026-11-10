@@ -3,21 +3,28 @@ import styles from './journey.module.css';
 // Timeline copy follows the reference image supplied by Angela.
 const milestones = [
   { year: '2010', place: 'UK', description: 'Study', icon: 'london' },
-  { year: '2014', place: 'Taiwan', description: 'Dudoo POS', icon: 'plant' },
-  { year: '2016', place: 'UK', description: 'Sky / NowTV', icon: 'cloud' },
+  { year: '2014', place: 'Taiwan', description: 'Dudoo POS', icon: 'taipei' },
+  { year: '2016', place: 'UK', description: 'Sky / NowTV', icon: 'eye' },
   { year: '2019', place: 'Australia', description: 'Stackla', icon: 'australia' },
-  { year: '2020', place: 'Taiwan', description: 'Trend Micro', icon: 'laptop' },
+  { year: '2020', place: 'Taiwan', description: 'Trend Micro', icon: 'taipei' },
 ];
 
 function JourneyIcon({ type }) {
+  const clockTower = <g><path d="M29 80V32h18v48M27 32h22l-3-7H30ZM32 25V18h12v7l-6-12-6 12ZM38 13V6" /><circle cx="38" cy="42" r="6" /><path d="M38 38v4l3 2M33 53v22m5-22v22m5-22v22M29 58h18" /></g>;
   const icons = {
-    london: <><path d="M22 52V25h20v27M20 25h24M24 20h16l-8-11-8 11ZM28 12V7h8v5M32 7V3M24 47h16M27 52v-5m10 5v-5M24 20v5m16-5v5" /><circle cx="32" cy="34" r="6" /><path d="M32 30v4l3 2M27 43h10" /></>,
-    australia: <><path d="m8 42 10-3 9-12 9 1 5-6 2-10 3 5 4-1 4 5-6 2-2 9-7 6-3 7 7 4-8 1-6-7 3-8-8 6-9 4-12-1Z" fill="#b3e0ec" /><path d="m39 32 6 2 4-2m-7-18 1-5m3 12h1M29 43l-3 8h8" /></>,
-    cloud: <><path d="M15 46h33a10 10 0 0 0 0-20 14 14 0 0 0-27-5 12 12 0 0 0-6 25Z" fill="#f8fcf2" /><path d="M16 43h29" opacity=".3" /></>,
-    laptop: <><path d="M12 16h40v29H12z" fill="#d5f1f8" /><path d="M16 20h32v21H16z" fill="#ecfaff" /><path d="m32 20-16 21h11l21-21" stroke="none" fill="#bde8f4" opacity=".7" /><path d="m12 45-5 6h50l-5-6M26 46h12" /></>,
-    plant: <><path d="M31 53V27M31 39l-7-9M32 34l9-12" /><path d="M30 34C16 35 11 22 12 14c12 0 19 7 18 20Z" fill="#f4e9a1" /><path d="M32 32c-1-15 10-20 20-18-1 12-8 20-20 18Z" fill="#d9e8b0" /><path d="m15 18 13 13m7-3 13-11" /></>,
+    london: <>{clockTower}<path d="M47 80V60h39v20M48 63h38M52 60v-8l4 8m8 0v-9l4 9m10 0v-8l4 8M51 70h31M54 66v14m8-14v14m8-14v14m8-14v14M24 80V65h-5v15" /></>,
+    taipei: <><path d="M49 80h22l-3-12H52ZM52 68l-3-12h22l-3 12M52 56l-3-12h22l-3 12M53 44l-3-12h20l-3 12M55 32l-3-10h16l-3 10M57 22V14h6v8M60 14V4M57 14h6M54 75h12M55 63h10M55 51h10M56 39h8M57 28h6" /></>,
+    eye: <><circle cx="48" cy="45" r="29" /><circle cx="48" cy="45" r="25" /><circle cx="48" cy="45" r="3" fill="#fffcf5" />{Array.from({length:12},(_,i)=>{const angle=i*Math.PI/6;const x=48+29*Math.cos(angle),y=45+29*Math.sin(angle);return <g key={i}><path d={`M48 45L${x} ${y}`} /><circle cx={x} cy={y} r="2.4" fill="#fffcf5" /></g>;})}<path d="M34 80 48 45l14 35M87 80V50h12v30M85 50h16l-8-12-8 12ZM93 38v-8M90 60h6m-6 6h6m-6 6h6" /></>,
+    australia: <><path d="M14 78h92v5H12ZM22 75Q23 57 17 50q24 3 35 25ZM38 75Q42 49 29 31q31 7 43 44ZM58 75Q65 46 53 20q29 12 37 55ZM76 75Q91 53 103 53q1 14-8 22ZM17 50l35 25M29 31l43 44M53 20l37 55M86 59l17-6" fill="#fffcf5" /></>,
   };
-  return <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{icons[type]}</svg>;
+  return <svg viewBox="0 0 120 92" fill="none" stroke="currentColor" strokeWidth="1.35" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <circle cx="58" cy="46" r="32" fill="#fff0a8" stroke="none" opacity=".8" />
+    <path d="M8 80q0-10 8-9-2-12 8-12 8 0 7 12 10-5 13 8h37q3-11 10-7-1-13 8-13 9 0 8 12 8-2 8 9Z" fill="#a8cdb7" stroke="none" />
+    <path d="M17 80V68m-4 3 4 3 4-4M100 80V68m-4 3 4 4 4-3" stroke="#6b9e8e" />
+    {icons[type]}
+    <path d="M10 33H27q3-5-3-6-2-8-8-3-6-2-6 4-6 0-5 5Z" fill="#f8fcff" />
+    <path d="M7 83h108" stroke="#90b8b6" />
+  </svg>;
 }
 
 export default function Journey() {

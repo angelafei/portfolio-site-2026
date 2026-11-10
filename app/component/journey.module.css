@@ -39,3 +39,15 @@
 @media(max-width:1100px){.journey{padding:125px 0 100px}.inner{grid-template-columns:1fr;gap:48px}.intro{max-width:610px}.intro h2{font-size:42px}.description{max-width:580px}.timelineArea{padding:0 95px 70px 0}.flight{right:-5px;top:5px}.handwritten{right:5px;bottom:-18px}.sun{left:auto;right:13%;top:125px}.leaves{width:74px;bottom:10px}.dotOne{left:auto;right:28%;top:30%}}
 @media(max-width:600px){.journey{padding:102px 0 78px}.topWave{height:67px}.inner{gap:42px}.eyebrow{font-size:11px;margin-bottom:14px}.intro h2{font-size:36px;margin-bottom:18px}.description{font-size:15px;line-height:1.85}.experienceLink{font-size:14px;padding:11px 23px;margin-top:22px}.timelineArea{padding:0 0 105px}.timeline{grid-template-columns:1fr;gap:26px}.timeline::before{top:33px;bottom:48px;left:33px;right:auto;width:1.5px;height:auto}.milestone{display:grid;grid-template-columns:68px minmax(0,1fr);column-gap:23px;text-align:left;align-items:center}.icon{margin:0;width:66px;height:66px;position:relative;z-index:1;background:#e6f1e8;box-shadow:0 0 0 7px #faf9e8}.icon svg{width:45px;height:45px}.marker{position:absolute;left:28px;top:76px;width:10px;height:10px;margin:0}.milestone:last-child .marker{display:none}.milestoneCopy{padding-block:3px}.year{font-size:14px;margin-bottom:2px}.milestone h3{font-size:18px;margin-bottom:4px}.role{font-size:14px;max-width:none;margin:0}.flight{width:120px;height:95px;top:auto;right:4px;bottom:11px;transform:rotate(-8deg)}.handwritten{font-size:16px;right:118px;bottom:-5px;line-height:1.5}.handwritten span{padding-left:0}.handwritten svg{width:35px}.sun{width:55px;height:55px;right:25px;top:100px;opacity:.7}.dotOne{top:33%;right:25px}.dotThree{bottom:26%;right:14%}.leaves{bottom:12px;left:1px;width:62px;height:77px;opacity:.5}}
 @media(prefers-reduced-motion:reduce){.experienceLink{transition:none}.experienceLink:hover{transform:none}}
+
+/* Landmark icon sizing from the saved design. */
+.icon { width:112px; height:86px; border-radius:0; background:transparent; margin-bottom:14px; color:#356575; }
+.icon svg { width:112px; height:86px; }
+.timeline::before { top:105px; }
+@media(max-width:600px){
+  .milestone{grid-template-columns:100px minmax(0,1fr);column-gap:18px}
+  .icon,.icon svg{width:100px;height:80px}
+  .icon{margin:0;box-shadow:none;background:transparent}
+  .timeline::before{top:40px;left:50px}
+  .marker{left:45px;top:89px}
+}

@@ -275,7 +275,8 @@ export default function Home({ journey }) {
           <h1 style={{
             fontFamily: "'DM Serif Display',serif",
             fontSize: "clamp(36px,7vw,72px)",
-            color: "white", fontWeight: 400, letterSpacing: "-0.01em",
+            color: "#ffffff", fontWeight: 400, letterSpacing: "-0.01em",
+            textShadow: "0 2px 12px rgba(34,86,107,0.18)",
 
             transition: "opacity 1s ease 0.3s, transform 1s ease 0.3s",
           }}>
@@ -284,7 +285,8 @@ export default function Home({ journey }) {
           <p style={{
             marginTop: 16,
             fontSize: "clamp(15px,2vw,20px)",
-            color: "rgba(255,255,255,0.9)", fontWeight: 300, letterSpacing: "0.04em",
+            color: "#ffffff", fontWeight: 500, letterSpacing: "0.02em",
+            textShadow: "0 1px 3px rgba(34,86,107,0.3), 0 2px 10px rgba(34,86,107,0.15)",
 
             transition: "opacity 1s ease 0.55s, transform 1s ease 0.55s",
           }}>
@@ -305,16 +307,7 @@ export default function Home({ journey }) {
               onMouseEnter={e => e.currentTarget.style.transform = "translateY(-2px)"}
               onMouseLeave={e => e.currentTarget.style.transform = "none"}
             >View Work</button>
-            <a href="mailto:future2931@gmail.com" style={{
-              background: "transparent", color: "white",
-              border: "2px solid rgba(255,255,255,0.7)",
-              borderRadius: 999, padding: "12px 28px",
-              fontFamily: "inherit", fontSize: 15, fontWeight: 600, cursor: "pointer",
-              transition: "background 0.2s",
-            }}
-              onMouseEnter={e => e.currentTarget.style.background = "rgba(255,255,255,0.12)"}
-              onMouseLeave={e => e.currentTarget.style.background = "transparent"}
-            >Get in Touch</a>
+            <a className="hero-contact" href="mailto:future2931@gmail.com">Get in Touch</a>
           </div>
         </div>
 
