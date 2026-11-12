@@ -290,7 +290,16 @@ export default function Home({ journey }) {
 
             transition: "opacity 1s ease 0.55s, transform 1s ease 0.55s",
           }}>
-            Front-end / Software Developer & Digital Experience Specialist
+            Front-end / Software Engineer · React & TypeScript
+          </p>
+          <p style={{
+            maxWidth: 640, margin: "20px auto 0",
+            fontSize: "clamp(14px,1.7vw,17px)", lineHeight: 1.8,
+            color: "#ffffff", textWrap: "pretty",
+            textShadow: "0 1px 3px rgba(34,86,107,0.3), 0 2px 10px rgba(34,86,107,0.15)",
+          }}>
+            Professional experience in Taiwan, Australia, and the UK,
+            spanning web applications, streaming products, and enterprise websites.
           </p>
           <div className="hero-btns" style={{
             marginTop: 32, display: "flex", gap: 14, justifyContent: "center",
