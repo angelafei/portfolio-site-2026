@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build --webpack && node scripts/verify-export-styles.mjs",
     "lint": "eslint --max-warnings=0",
     "predev": "node scripts/generate-images.mjs",
     "prebuild": "node scripts/generate-images.mjs"

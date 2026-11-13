@@ -28,7 +28,7 @@ To preview the export (requires Python 3):
 python3 -m http.server 4173 --bind 127.0.0.1 --directory dist
 ```
 
-Open http://127.0.0.1:4173. If an environment cannot run Turbopack's worker processes, `npm run build -- --webpack` uses the alternative Next.js build pipeline.
+Open http://127.0.0.1:4173. Production builds explicitly use webpack: with the current Next.js/Tailwind setup, the Turbopack export omitted custom theme utilities even though the build succeeded. `npm run build` also checks the CSS linked by the exported HTML for the portfolio's theme utilities and decorative keyframes. Keep Render's build command as `npm ci && npm run build` and publish directory as `dist`.
 
 ## Project structure
 
