@@ -1,15 +1,15 @@
 export const NAV_ITEMS  = ["About", "Portfolio", "Skills", "Contact"];
 export const SKILLS = [
-  { category: "Frontend", color: "#1a7ab0", bg: "#e8f7ff", items: ["HTML5","CSS3","JavaScript","TypeScript","ReactJS","VueJS","AngularJS","Electron","D3.js","Three.js","FabricJS","Bootstrap","Tailwind","Sass","GraphQL","Responsive Design","Cross-browser Compatibility","Accessibility","Map Libraries","Chart Libraries"] },
-  { category: "Backend", color: "#0d7a5f", bg: "#e2f5f0", items: ["NodeJS","NextJS","PHP","Python","RESTful API","Apps Script"] },
-  { category: "Testing", color: "#c4622d", bg: "#fef3eb", items: ["Mocha","Chai","Sinon","Cypress","Selenium","Robot Framework"] },
-  { category: "Build Tools", color: "#5a48c8", bg: "#f0eeff", items: ["Git","Gulp","Webpack","Turbopack","Vite","Babel","NPM","Yarn"] },
-  { category: "Analytics Marketing", color: "#2e7d4f", bg: "#e8f6ee", items: ["Google Analytics","GA4","GTM","SEO","A/B Testing","Data Tracking"] },
-  { category: "CMS Tools", color: "#c0364a", bg: "#fdeef0", items: ["Adobe Experience Manager","CMS","Dreamweaver","Microsoft Office Suite","Notion","Jira","Asana","Figma"] },
-  { category: "Design", color: "#b85c1a", bg: "#fff4e8", items: ["Photoshop","Illustrator","Figma","Canva","UX Design","Wireframing","Prototyping","Design Systems"] },
-  { category: "OS", color: "#2a6a8a", bg: "#e5f4f9", items: ["Mac","Windows","Linux"] },
-  { category: "Soft Skills", color: "#1e8bcb", bg: "#e5f4f9", items: ["Cross-functional Collaboration","Stakeholder Communication","Project Coordination","Problem Solving","Detail-oriented","Time Management","Remote Collaboration","Multicultural Communication"] },
-  { category: "Interests", color: "#7a42b8", bg: "#f5eeff", items: ["Handmade Crafts","Reading","Baking","Cooking","Travel","Tarot","Nature Walks","Pet Friendly","Slow Living","Inner Peace","Meditation","Mindfulness","Simplicity","Sustainability"] },
+  {"category":"Frontend & Web Frameworks","color":"#1a7ab0","bg":"#e8f7ff","items":["JavaScript","TypeScript","React","Next.js","Vue","HTML","CSS","Tailwind CSS","Sass","Electron","Three.js","Fabric.js","Bootstrap"]},
+  {"category":"API & Data Visualization","color":"#0d7a5f","bg":"#e2f5f0","items":["REST APIs","GraphQL","D3.js","Leaflet","Mapbox","Google Maps API","OpenStreetMap"]},
+  {"category":"Testing & UI Development","color":"#c4622d","bg":"#fef3eb","items":["Cypress","Selenium","Mocha","Chai","Sinon","Robot Framework","Storybook"]},
+  {"category":"Development & Delivery","color":"#5a48c8","bg":"#f0eeff","items":["Git","npm","Yarn","Vite","Webpack","Babel","Node.js tooling","CI/CD","Docker"]},
+  {"category":"Enterprise Web & Analytics","color":"#2e7d4f","bg":"#e8f6ee","items":["Adobe Experience Manager","CMS","GA4","Google Tag Manager","Technical SEO","Data Tracking"]},
+  {"category":"Automation & AI","color":"#0d7a5f","bg":"#e2f5f0","items":["Google Apps Script","Python","Workflow Automation","AI-assisted Development","AI Output Evaluation","Code Review","Multimodal Data Validation"]},
+  {"category":"Design & Collaboration","color":"#b85c1a","bg":"#fff4e8","items":["Figma","Photoshop","Illustrator","Canva","Responsive Design","Cross-browser Compatibility","Wireframing","Prototyping","Cross-functional Collaboration","Stakeholder Communication","Project Coordination","Jira","Asana","Notion"]},
+  {"category":"Earlier Experience","color":"#c0364a","bg":"#fdeef0","items":["AngularJS","jQuery","PHP / CodeIgniter","MySQL","Gulp","Dreamweaver"]},
+  {"category":"OS","color":"#2a6a8a","bg":"#e5f4f9","items":["macOS","Windows","Linux"]},
+  {"category":"Interests","color":"#7a42b8","bg":"#f5eeff","items":["Handmade Crafts","Reading","Baking","Cooking","Travel","Tarot","Nature Walks","Pet Friendly","Slow Living","Inner Peace","Meditation","Mindfulness","Simplicity","Sustainability"]},
 ];
 export const PROJECTS = [
   { title: "Trend Micro",

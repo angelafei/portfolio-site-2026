@@ -1,5 +1,20 @@
 @import "tailwindcss";
 
+/* Shared values preserve the existing portfolio palette and typography. */
+@theme inline {
+  --font-body: "DM Sans", "Nunito", sans-serif;
+  --font-display: "DM Serif Display", serif;
+  --color-page: #f8fcff;
+  --color-ink: #2a5a70;
+  --color-sky: #7ec8e3;
+  --color-butter: #f9e784;
+  --color-muted: #5a7a8a;
+  --color-subtle: #8aacba;
+  --color-action: #5ab3d4;
+  --color-panel: #eaf6fb;
+  --color-cream: #faf6d8;
+}
+
 body {
   background: #f8fcff;
   color: #2a5a70;
@@ -10,7 +25,6 @@ section[id] { scroll-margin-top: 72px; }
 :focus-visible { outline: 3px solid #245b73; outline-offset: 4px; }
 .skip-link { position: fixed; top: -100px; left: 16px; z-index: 300; background: white; color: #245b73; padding: 12px 20px; }
 .skip-link:focus { top: 12px; }
-.hamburger { background: transparent; border: 0; min-width: 44px; min-height: 44px; justify-content: center; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto !important; }
@@ -19,3 +33,5 @@ section[id] { scroll-margin-top: 72px; }
     transition: none !important;
   }
 }
+
+button:not(:disabled), a[href], [role="button"]:not([aria-disabled="true"]) { cursor: pointer; }

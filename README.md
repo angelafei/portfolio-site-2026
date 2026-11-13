@@ -34,11 +34,17 @@ Open http://127.0.0.1:4173. If an environment cannot run Turbopack's worker proc
 
 - `app/page.js` and `app/layout.js`: route, metadata, and optional analytics.
 - `app/content/portfolio.js`: navigation labels, project details, and skills.
-- `app/component/home.js`: homepage composition and interactive hero/navigation/skills.
+- `app/component/home.js`: server-rendered homepage composition.
+- `app/component/site-navigation.js`, `hero.js`, and `skills-carousel.js`: isolated interactive sections.
+- `app/component/about.js`, `selected-projects.js`, `site-footer.js`, and `section-heading.js`: content sections and shared typography.
+- `app/component/navigation-state.js`: shared mobile menu state, preserving dismissal when View Work is activated.
+- `app/hooks/use-swipe.js`: pointer gesture handling for the skills carousel.
 - `app/component/journey.js`: career timeline and decorative SVG illustrations.
 - `app/component/projects-carousel.js`: responsive project browsing with touch, mouse drag, and arrow keys.
 - `app/component/case-studies.js`: native modal dialog with focus restoration and Escape dismissal.
-- `app/globals.css`, `app/home.css`, and component CSS Modules: global defaults, homepage styling, and component-specific styles.
+- `app/globals.css`: Tailwind v4, shared palette/font tokens, and global accessibility defaults.
+- `app/home.css`: existing decorative keyframes and base reset.
+- Component CSS Modules: scoped hover states, responsive exceptions, timeline illustrations, and carousel/dialog behavior.
 - `public/images/`: project screenshots used on the page.
 
 ## Implementation decisions
@@ -49,7 +55,9 @@ Open http://127.0.0.1:4173. If an environment cannot run Turbopack's worker proc
 - **Accessibility:** semantic navigation links, keyboard-operable controls, a skip link, visible focus indicators, and reduced-motion styles. These are implementation features, not a claim of a full accessibility audit.
 - **Images:** `next/image` reserves space with a fixed aspect-ratio container and selects pre-generated WebP sizes through a custom loader, without a server image API. `predev` and `prebuild` generate 360/480/640/960/1440px variants in the ignored `public/images/responsive/` directory using Sharp. Keep originals in `public/images/`; use `npm run dev` or `npm run build` so variants are generated first.
 - **Case studies:** dialog code and styles load when a case-study button is first activated, keeping them out of the initial page bundle.
-- **Journey:** the static timeline renders as a Server Component passed into the interactive homepage, so its rendering code is excluded from browser JavaScript.
+- **Server/client boundaries:** homepage composition, About, selected-work framing, footer, and timeline stay server-rendered. Client components own pointer motion, navigation, carousels, and dialogs; server-rendered children pass through the navigation provider.
+- **Styling:** Tailwind utilities handle static layout and typography, using the existing values rather than approximating them to a new spacing scale. CSS Modules retain specialized responsive and interaction rules. Inline styles are limited to data-driven category colors, gesture offsets, and animation state; dynamic Tailwind class names are not assembled at runtime.
+- **Visual preservation:** the styling refactor was compared against the previous source at 390×844, 768×1024, 1280×900, and 1920×1080. Static computed styles and animation timing were compared separately from continuously changing animation frames.
 - **Fonts:** Google Fonts loads in the browser with local fallback fonts, so the build does not depend on fetching fonts.
 
 ## Optional analytics

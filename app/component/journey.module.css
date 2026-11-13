@@ -45,6 +45,7 @@
 .icon svg { width:112px; height:86px; }
 .timeline::before { top:105px; }
 @media(max-width:600px){
+  .timeline{width:min(100%,280px);margin-inline:auto}
   .milestone{grid-template-columns:100px minmax(0,1fr);column-gap:18px}
   .icon,.icon svg{width:100px;height:80px}
   .icon{margin:0;box-shadow:none;background:transparent}

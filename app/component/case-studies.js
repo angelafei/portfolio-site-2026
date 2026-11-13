@@ -45,7 +45,11 @@ export default function CaseStudyDialog({ project, onClose }) {
     };
   }, [project]);
 
-  return <dialog ref={dialogRef} className={styles.dialog} aria-labelledby="case-study-title" aria-describedby="case-study-scope" onClose={onClose}
+  return <dialog ref={dialogRef} className={styles.dialog} aria-labelledby="case-study-title" aria-describedby="case-study-scope" onClose={event => {
+    // Strict Mode reopens the dialog before the cleanup's queued close event fires.
+    // Ignore that stale event so it cannot dismiss the newly opened dialog.
+    if (!event.currentTarget.open) onClose();
+  }}
     onPointerDown={event => { backdropPress.current = event.target === event.currentTarget; }}
     onClick={event => { if (backdropPress.current && event.target === event.currentTarget) dialogRef.current.close(); }}>
     <article className={styles.paper}>

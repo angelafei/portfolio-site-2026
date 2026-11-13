@@ -1,0 +1,2 @@
+@media(max-width:768px){.about-grid{grid-template-columns:1fr !important;gap:48px !important}.about-avatar{order:-1;max-width:280px !important;margin:0 auto !important}}
+@media(max-width:480px){.about-avatar{max-width:220px !important}}
